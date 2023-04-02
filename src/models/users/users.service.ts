@@ -2,13 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { PrismaService } from './services/prima.service';
 import { User } from './entities/user.entity';
+import { UserRepository } from './repositories/UserRepository';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService, 
+    private userRepository: UserRepository 
+  ) {}
 
-  create(data: CreateUserInput): Promise<User> {
-    const user = this.prisma.user.create({ data });
+  async create(data: CreateUserInput): Promise<User> {
+    const user = await this.userRepository.create(data);
     return user;
   }
 
@@ -18,6 +22,23 @@ export class UsersService {
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
+  }
+
+  addConsult() {
+    const user = this.prisma.user.update({
+      where: {
+        id: '123',
+      },
+      data: {
+        consults: {
+          create: {
+            id: '321',
+            doctorName: 'Dr. Jorge',
+          },
+        },
+      },
+    });
+    return user;
   }
 
   //update(id: number, updateUserInput: UpdateUserInput) {

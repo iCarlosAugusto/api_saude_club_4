@@ -22,6 +22,11 @@ export class UsersResolver {
     return this.usersService.findOne(id);
   }
 
+  @Mutation(() => User)
+  addConsult() {
+    return this.usersService.addConsult();
+  }
+
   //@Mutation(() => User)
   //updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
   //  return this.usersService.update(updateUserInput.id, updateUserInput);
