@@ -22,9 +22,4 @@ export class UsersResolver {
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput){
     return this.usersService.update(updateUserInput);
   }
-
-  @Mutation(() => User)
-  addConsult() {
-    return this.usersService.addConsult();
-  }
 }

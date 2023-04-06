@@ -31,21 +31,4 @@ export class UsersService {
     const updatedUser = await this.userRepository.update(updateUserInput);
     return updatedUser;
   }
-
-  addConsult() {
-    const user = this.prisma.user.update({
-      where: {
-        id: '17eeecf2-dd47-4e4d-91da-cff58c5a0a72',
-      },
-      data: {
-        consults: {
-          create: {
-            id: '17eeecf2-dd47-4e4d-91da-cff58c5a0a72',
-            doctorName: 'Dr. Mauro',
-          },
-        },
-      },
-    });
-    return user;
-  }
 }
