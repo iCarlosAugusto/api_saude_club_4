@@ -3,6 +3,7 @@ import { IUserRepository } from './IUserRepository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../services/prima.service';
 import { CreateUserInput } from '../dto/create-user.input';
+import { UpdateUserInput } from '../dto/update-user.input';
 
 @Injectable()
 class UserRepository implements IUserRepository {
@@ -25,11 +26,27 @@ class UserRepository implements IUserRepository {
     const user: User = await this.prisma.user.create({ data });
     return user;
   }
-  getAll(): Promise<User[]> {
-    throw new Error('Method not implemented.');
+
+  async findOne(id: string): Promise<User> {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        id: id
+      }
+    })
+    return user;
   }
-  getOne(): Promise<User> {
-    throw new Error('Method not implemented.');
+
+  async update(data: UpdateUserInput): Promise<User> {
+    const updateUser = await this.prisma.user.update({
+      where: {
+        id: data.id
+      },
+      data: {
+        name: data.name,
+        email: data.email,
+      },
+    })
+    return updateUser;
   }
 }
 
