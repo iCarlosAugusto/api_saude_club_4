@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -11,22 +8,34 @@ generator client {
 }
 
 model User {
-  id         String     @default(uuid()) @id
-  createdAt  DateTime   @default(now())
-  //cpf        String     @unique
-  email      String     @unique
-  password   String 
-  name       String
-  consults   Consult[]
+  id          String     @default(uuid()) @id
+  createdAt   DateTime   @default(now())
+  //cpf         String     @unique
+  email       String     @unique
+  password    String 
+  name        String
+  consults    Consult[]
 
   @@map("users")
 }
 
+model Partner {
+  id          String     @default(uuid()) @id
+  createdAt   DateTime   @default(now())
+  name        String
+  email       String 
+  phoneNumber String 
+  consults    Consult[]
+
+  @@map("partners")
+}
+
 model Consult {
-  id          String    @default(uuid()) @id
-  doctorName  String 
+  id          String     @default(uuid()) @id
+  partnerId   String 
+  partner     Partner    @relation(fields: [partnerId], references: [id])
   clientId    String
-  client  User @relation(fields: [clientId], references: [id])
+  client      User       @relation(fields: [clientId], references: [id])
 
   @@map("consults")
 }
