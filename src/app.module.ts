@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './models/users/users.module';
 import { PartnersModule } from './models/partners/partners.module';
+import { ConsultsModule } from './models/consults/consults.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { PartnersModule } from './models/partners/partners.module';
     }),
     UsersModule,
     PartnersModule,
+    ConsultsModule,
   ],
   controllers: [],
   providers: [],

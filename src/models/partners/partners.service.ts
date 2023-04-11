@@ -8,9 +8,7 @@ import { FindOneParnetInput } from './dto/find-one-partner.input';
 @Injectable()
 export class PartnersService {
 
-  constructor(
-    private partnerRepository: PartnerRepository 
-  ){}
+  constructor(private partnerRepository: PartnerRepository){}
 
   async create(data: CreatePartnerInput) {
     const partner = await this.partnerRepository.create(data); 
@@ -25,9 +23,5 @@ export class PartnersService {
   async update(data: UpdatePartnerInput): Promise<PartnerEntity> {
     const partnerUpdated = await this.partnerRepository.update(data);
     return partnerUpdated
-  }
-
-  async createConsult() {
-    return await this.partnerRepository.createConsult();
   }
 }

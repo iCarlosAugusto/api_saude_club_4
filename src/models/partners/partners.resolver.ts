@@ -23,9 +23,4 @@ export class PartnersResolver {
   updatePartner(@Args('updatePartnerInput') updatePartnerInput: UpdatePartnerInput) {
     return this.partnersService.update(updatePartnerInput);
   }
-
-  @Mutation(() => String)
-  createConsult() {
-    return this.partnersService.createConsult();
-  }
 }

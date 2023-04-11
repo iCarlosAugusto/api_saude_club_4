@@ -43,15 +43,4 @@ export class PartnerRepository {
         })
         return partner;
     }
-
-    async createConsult() {
-        await this.prisma.consult.create({
-            data: {
-                clientId: "123",
-                partnerId: "f7e7d14a-6c5d-478c-947e-7396123af48b"
-            }
-        })
-
-        return "Deu certo!";
-    }
 }
