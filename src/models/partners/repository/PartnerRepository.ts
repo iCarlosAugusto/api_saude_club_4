@@ -3,6 +3,8 @@ import { PrismaService } from "src/models/users/services/prima.service";
 import { CreatePartnerInput } from "../dto/create-partner.input";
 import { Partner } from "@prisma/client";
 import { UpdatePartnerInput } from "../dto/update-partner.input";
+import { PartnerEntity } from "../entities/partner.entity";
+import { FindOneParnetInput } from "../dto/find-one-partner.input";
 
 @Injectable()
 export class PartnerRepository {
@@ -31,6 +33,15 @@ export class PartnerRepository {
             }
         })
         return partnerUpdated;
+    }
+
+    async findOne({ id }: FindOneParnetInput): Promise<PartnerEntity> {
+        const partner = await this.prisma.partner.findUnique({
+            where: {
+                id
+            }
+        })
+        return partner;
     }
 
     async createConsult() {
