@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UpdatePartnerInput } from './dto/update-partner.input';
 import { PartnerRepository } from './repository/PartnerRepository';
 import { CreatePartnerInput } from './dto/create-partner.input';
+import { UpdatePartnerInput } from './dto/update-partner.input';
+import { PartnerEntity } from './entities/partner.entity';
 
 @Injectable()
 export class PartnersService {
@@ -15,23 +16,12 @@ export class PartnersService {
     return partner;
   }
 
+  async update(data: UpdatePartnerInput): Promise<PartnerEntity> {
+    const partnerUpdated = await this.partnerRepository.update(data);
+    return partnerUpdated
+  }
+
   async createConsult() {
     return await this.partnerRepository.createConsult();
-  }
-
-  findAll() {
-    return `This action returns all partners`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} partner`;
-  }
-
-  update(id: number, updatePartnerInput: UpdatePartnerInput) {
-    return `This action updates a #${id} partner`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} partner`;
   }
 }

@@ -1,12 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
-export class Partner {
+export class PartnerEntity {
   @Field(() => String)
   id: string;
 
   @Field(() => String)
-  createdAt: string;
+  createdAt: Date;
 
   @Field(() => String)
   name: string;

@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/models/users/services/prima.service";
 import { CreatePartnerInput } from "../dto/create-partner.input";
 import { Partner } from "@prisma/client";
+import { UpdatePartnerInput } from "../dto/update-partner.input";
 
 @Injectable()
 export class PartnerRepository {
@@ -17,8 +18,19 @@ export class PartnerRepository {
                 
             }
         })
-
         return partner;
+    }
+
+    async update(data: UpdatePartnerInput): Promise<Partner> {
+        const partnerUpdated = await this.prisma.partner.update({
+            where: { id: data.id },
+            data: {
+                email: data.email,
+                name: data.name,
+                phoneNumber: data.phoneNumber
+            }
+        })
+        return partnerUpdated;
     }
 
     async createConsult() {
