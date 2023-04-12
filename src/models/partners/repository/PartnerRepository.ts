@@ -43,4 +43,9 @@ export class PartnerRepository {
         })
         return partner;
     }
+
+    async findAll(): Promise<PartnerEntity[]> {
+        const partners = await this.prisma.partner.findMany();
+        return partners;
+    }
 }

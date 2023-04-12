@@ -14,6 +14,11 @@ export class PartnersResolver {
     return this.partnersService.findOne(findOnePartnerInput);
   }
 
+  @Query(() => [PartnerEntity], {nullable: true})
+  findAllPartners() {
+    return this.partnersService.findAll();
+  }
+
   @Mutation(() => PartnerEntity)
   createPartner(@Args('createPartnerInput') createPartnerInput: CreatePartnerInput) {
     return this.partnersService.create(createPartnerInput);

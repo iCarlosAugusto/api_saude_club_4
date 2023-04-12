@@ -20,6 +20,12 @@ export class PartnersService {
     return partner;
   }
 
+  async findAll(){
+    const partner = await this.partnerRepository.findAll();
+    return partner;
+  }
+
+
   async update(data: UpdatePartnerInput): Promise<PartnerEntity> {
     const partnerUpdated = await this.partnerRepository.update(data);
     return partnerUpdated
