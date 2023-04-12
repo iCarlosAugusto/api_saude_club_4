@@ -17,7 +17,10 @@ export class PartnerRepository {
                 email: data.email,
                 name: data.name,
                 phoneNumber: data.phoneNumber,
-                
+                address: data.address,
+                jobDescription: data.jobDescription,
+                servicePrice: data.servicePrice,
+                specialties: data.specialties
             }
         })
         return partner;
@@ -35,7 +38,7 @@ export class PartnerRepository {
         return partnerUpdated;
     }
 
-    async findOne({ id }: FindOneParnetInput): Promise<PartnerEntity> {
+    async findOne({ id }: FindOneParnetInput): Promise<Partner> {
         const partner = await this.prisma.partner.findUnique({
             where: {
                 id
@@ -44,7 +47,7 @@ export class PartnerRepository {
         return partner;
     }
 
-    async findAll(): Promise<PartnerEntity[]> {
+    async findAll(): Promise<Partner[]> {
         const partners = await this.prisma.partner.findMany();
         return partners;
     }

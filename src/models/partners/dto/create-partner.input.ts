@@ -1,5 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, Max } from 'class-validator';
 
 @InputType()
 export class CreatePartnerInput {
@@ -21,4 +21,20 @@ export class CreatePartnerInput {
   @IsNotEmpty({ message: 'O número é obrigatória' })
   @Field(() => String)
   phoneNumber: string;
+  
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  specialties: string;
+
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  address: string;
+
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  servicePrice: string;
+
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  jobDescription: string;
 }

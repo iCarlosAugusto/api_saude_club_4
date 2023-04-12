@@ -13,7 +13,11 @@ CREATE TABLE "partners" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "phoneNumber" TEXT NOT NULL
+    "specialties" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "phoneNumber" TEXT NOT NULL,
+    "servicePrice" TEXT NOT NULL,
+    "jobDescription" TEXT NOT NULL
 );
 
 -- CreateTable

@@ -20,12 +20,16 @@ model User {
 }
 
 model Partner {
-  id          String     @default(uuid()) @id
-  createdAt   DateTime   @default(now())
-  name        String
-  email       String 
-  phoneNumber String 
-  consults    Consult[]
+  id                String       @default(uuid()) @id
+  createdAt         DateTime     @default(now())
+  name              String
+  email             String
+  specialties       String
+  address           String
+  phoneNumber       String 
+  servicePrice      String 
+  jobDescription    String
+  consults          Consult[]
 
   @@map("partners")
 }

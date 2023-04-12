@@ -13,6 +13,10 @@ export class UpdatePartnerInput {
   @Field(() => String)
   email: string;
 
+  @IsNotEmpty({ message: 'A senha é obrigatório' })
+  @Field(() => String)
+  password: string;
+
   @IsNotEmpty({ message: 'O nome é obrigatória' })
   @Field(() => String)
   name: string;
@@ -20,4 +24,20 @@ export class UpdatePartnerInput {
   @IsNotEmpty({ message: 'O número é obrigatória' })
   @Field(() => String)
   phoneNumber: string;
+  
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  specialties: string;
+
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  address: string;
+
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  servicePrice: string;
+
+  @IsNotEmpty({ message: 'A specialties é obrigatória' })
+  @Field(() => String)
+  jobDescription: string;
 }

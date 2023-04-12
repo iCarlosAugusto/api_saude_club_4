@@ -4,6 +4,7 @@ import { CreatePartnerInput } from './dto/create-partner.input';
 import { UpdatePartnerInput } from './dto/update-partner.input';
 import { PartnerEntity } from './entities/partner.entity';
 import { FindOneParnetInput } from './dto/find-one-partner.input';
+import { Partner } from '@prisma/client';
 
 @Injectable()
 export class PartnersService {
@@ -26,7 +27,7 @@ export class PartnersService {
   }
 
 
-  async update(data: UpdatePartnerInput): Promise<PartnerEntity> {
+  async update(data: UpdatePartnerInput): Promise<Partner> {
     const partnerUpdated = await this.partnerRepository.update(data);
     return partnerUpdated
   }
