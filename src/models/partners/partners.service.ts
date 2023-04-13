@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { PartnerRepository } from './repository/PartnerRepository';
 import { CreatePartnerInput } from './dto/create-partner.input';
 import { UpdatePartnerInput } from './dto/update-partner.input';
-import { PartnerEntity } from './entities/partner.entity';
 import { FindOneParnetInput } from './dto/find-one-partner.input';
 import { Partner } from '@prisma/client';
+import { FindAllParnerstInput } from './dto/find-all-partners.input';
 
 @Injectable()
 export class PartnersService {
@@ -21,11 +21,10 @@ export class PartnersService {
     return partner;
   }
 
-  async findAll(){
-    const partner = await this.partnerRepository.findAll();
+  async findAll(data: FindAllParnerstInput){
+    const partner = await this.partnerRepository.findAll(data);
     return partner;
   }
-
 
   async update(data: UpdatePartnerInput): Promise<Partner> {
     const partnerUpdated = await this.partnerRepository.update(data);

@@ -4,6 +4,7 @@ import { PartnerEntity } from './entities/partner.entity';
 import { CreatePartnerInput } from './dto/create-partner.input';
 import { UpdatePartnerInput } from './dto/update-partner.input';
 import { FindOneParnetInput } from './dto/find-one-partner.input';
+import { FindAllParnerstInput } from './dto/find-all-partners.input';
 
 @Resolver(() => PartnerEntity)
 export class PartnersResolver {
@@ -15,8 +16,8 @@ export class PartnersResolver {
   }
 
   @Query(() => [PartnerEntity], {nullable: true})
-  findAllPartners() {
-    return this.partnersService.findAll();
+  findAllPartners(@Args('findAllPartnersInput') findAllParnerstInput: FindAllParnerstInput) {
+    return this.partnersService.findAll(findAllParnerstInput);
   }
 
   @Mutation(() => PartnerEntity)
