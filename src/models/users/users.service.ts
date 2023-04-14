@@ -25,6 +25,11 @@ export class UsersService {
     return user;
   }
 
+  async findAll(): Promise<User[]> {
+    const users = await this.userRepository.findAll();
+    return users;
+  }
+
   async update(updateUserInput: UpdateUserInput): Promise<User> {
     const isUserExists = await this.userRepository.findOne(updateUserInput.id);
     if(!isUserExists) throw new Error("Usuário não encontrado");

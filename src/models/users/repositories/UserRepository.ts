@@ -36,6 +36,11 @@ class UserRepository implements IUserRepository {
     return user;
   }
 
+  async findAll(): Promise<User[]> {
+    const users = await this.prisma.user.findMany();
+    return users;
+  }
+
   async update(data: UpdateUserInput): Promise<User> {
     const updateUser = await this.prisma.user.update({
       where: {
