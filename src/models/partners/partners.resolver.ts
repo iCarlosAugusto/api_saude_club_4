@@ -5,6 +5,7 @@ import { CreatePartnerInput } from './dto/create-partner.input';
 import { UpdatePartnerInput } from './dto/update-partner.input';
 import { FindOneParnetInput } from './dto/find-one-partner.input';
 import { FindAllParnerstInput } from './dto/find-all-partners.input';
+import { UpdatePasswordPartnerInput } from './dto/update-password-partner.input';
 
 @Resolver(() => PartnerEntity)
 export class PartnersResolver {
@@ -28,5 +29,10 @@ export class PartnersResolver {
   @Mutation(() => PartnerEntity)
   updatePartner(@Args('updatePartnerInput') updatePartnerInput: UpdatePartnerInput) {
     return this.partnersService.update(updatePartnerInput);
+  }
+
+  @Mutation(() => PartnerEntity)
+  updatePasswordPartner(@Args('updatePasswordInput') updatePasswordInput: UpdatePasswordPartnerInput) {
+    return this.partnersService.updatePassword(updatePasswordInput)
   }
 }

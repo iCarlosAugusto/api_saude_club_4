@@ -13,6 +13,7 @@ CREATE TABLE "partners" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "specialties" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,

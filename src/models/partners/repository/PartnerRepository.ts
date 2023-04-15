@@ -5,6 +5,7 @@ import { Partner } from "@prisma/client";
 import { UpdatePartnerInput } from "../dto/update-partner.input";
 import { FindOneParnetInput } from "../dto/find-one-partner.input";
 import { FindAllParnerstInput } from "../dto/find-all-partners.input";
+import { UpdatePasswordPartnerInput } from "../dto/update-password-partner.input";
 
 @Injectable()
 export class PartnerRepository {
@@ -14,6 +15,7 @@ export class PartnerRepository {
     async create(data: CreatePartnerInput): Promise<Partner> {
         const partner = await this.prisma.partner.create({
             data: {
+                password: data.password,
                 email: data.email,
                 name: data.name,
                 phoneNumber: data.phoneNumber,
@@ -37,6 +39,25 @@ export class PartnerRepository {
         })
         return partnerUpdated;
     }
+
+    async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordPartnerInput): Promise<Partner> {
+        const partner = await this.prisma.partner.findUnique({
+          where: {
+            id: id
+          }
+        })
+        if(partner.password !== currentPassword) throw new Error("Senha atual incorreta"); 
+        const updatedPasswordPartner = await this.prisma.partner.update({
+          where: {
+            id: id,
+          },
+          data: {
+            password: newPassword
+          }
+        })
+    
+        return updatedPasswordPartner;
+      }
 
     async findOne({ id }: FindOneParnetInput): Promise<Partner> {
         const partner = await this.prisma.partner.findUnique({

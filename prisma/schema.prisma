@@ -24,6 +24,7 @@ model Partner {
   createdAt         DateTime     @default(now())
   name              String
   email             String
+  password          String
   specialties       String
   address           String
   phoneNumber       String 
