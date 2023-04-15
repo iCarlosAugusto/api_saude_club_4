@@ -4,6 +4,7 @@ import { PrismaService } from './services/prima.service';
 import { User } from './entities/user.entity';
 import { UserRepository } from './repositories/UserRepository';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UpdatePasswordClientInput } from './dto/update-password-client.input';
 
 @Injectable()
 export class UsersService {
@@ -35,5 +36,12 @@ export class UsersService {
     if(!isUserExists) throw new Error("Usuário não encontrado");
     const updatedUser = await this.userRepository.update(updateUserInput);
     return updatedUser;
+  }
+
+  async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordClientInput): Promise<User> {
+    const isUserExists = await this.userRepository.findOne(id);
+    if(!isUserExists) throw new Error("Usuário não encontrado");
+    const updatedClintPassword = await this.userRepository.updatePassword({id, currentPassword, newPassword});
+    return updatedClintPassword;
   }
 }

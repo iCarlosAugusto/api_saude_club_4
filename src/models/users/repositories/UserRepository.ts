@@ -4,6 +4,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../services/prima.service';
 import { CreateUserInput } from '../dto/create-user.input';
 import { UpdateUserInput } from '../dto/update-user.input';
+import { UpdatePasswordClientInput } from '../dto/update-password-client.input';
 
 @Injectable()
 class UserRepository implements IUserRepository {
@@ -52,6 +53,25 @@ class UserRepository implements IUserRepository {
       },
     })
     return updateUser;
+  }
+  
+  async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordClientInput): Promise<User> {
+    const client = await this.prisma.user.findUnique({
+      where: {
+        id: id
+      }
+    })
+    if(client.password !== currentPassword) throw new Error("Senha atual incorreta"); 
+    const updatedPasswordClient = await this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        password: newPassword
+      }
+    })
+
+    return updatedPasswordClient;
   }
 }
 

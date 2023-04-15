@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UpdatePasswordClientInput } from './dto/update-password-client.input';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -26,5 +27,10 @@ export class UsersResolver {
   @Mutation(() => User)
   updateClient(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.usersService.update(updateUserInput);
+  }
+
+  @Mutation(() => User)
+  updatePasswordClient(@Args('updatePasswordInput') updatePasswordInput: UpdatePasswordClientInput) {
+    return this.usersService.updatePassword(updatePasswordInput)
   }
 }
