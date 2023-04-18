@@ -8,13 +8,14 @@ generator client {
 }
 
 model User {
-  id          String     @default(uuid()) @id
-  createdAt   DateTime   @default(now())
-  //cpf         String     @unique
-  email       String     @unique
-  password    String 
-  name        String
-  consults    Consult[]
+  id                String     @default(uuid()) @id
+  createdAt         DateTime   @default(now())
+  email             String     @unique
+  password          String 
+  photo             String
+  phoneNumber       String 
+  name              String
+  consults          Consult[]
 
   @@map("users")
 }
@@ -24,6 +25,7 @@ model Partner {
   createdAt         DateTime     @default(now())
   name              String
   email             String
+  photo             String
   password          String
   specialties       String
   address           String
