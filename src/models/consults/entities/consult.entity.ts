@@ -7,4 +7,7 @@ export class ConsultEntity {
 
   @Field(() => String)
   clientId: string;
+
+  @Field(() => Boolean)
+  isFinished: boolean;
 }
