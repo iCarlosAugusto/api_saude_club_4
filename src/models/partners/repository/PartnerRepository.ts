@@ -22,7 +22,8 @@ export class PartnerRepository {
                 address: data.address,
                 jobDescription: data.jobDescription,
                 servicePrice: data.servicePrice,
-                specialties: data.specialties
+                specialties: data.specialties,
+                
             }
         })
         return partner;
@@ -32,9 +33,14 @@ export class PartnerRepository {
         const partnerUpdated = await this.prisma.partner.update({
             where: { id: data.id },
             data: {
+                address: data.address,
+                jobDescription: data.jobDescription,
+                servicePrice: data.servicePrice,
+                specialties: data.specialties,
                 email: data.email,
                 name: data.name,
-                phoneNumber: data.phoneNumber
+                phoneNumber: data.phoneNumber,
+                photo: data.photo
             }
         })
         return partnerUpdated;

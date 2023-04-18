@@ -28,6 +28,8 @@ export class PartnersService {
   }
 
   async update(data: UpdatePartnerInput): Promise<Partner> {
+    const partnerExists = await this.findOne({id: data.id});
+    if(!partnerExists) throw new Error("Parceiro não encontrado");
     const partnerUpdated = await this.partnerRepository.update(data);
     return partnerUpdated
   }

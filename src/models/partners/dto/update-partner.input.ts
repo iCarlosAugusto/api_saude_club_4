@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class UpdatePartnerInput {
@@ -9,35 +9,36 @@ export class UpdatePartnerInput {
   @Field(() => String)
   id: string;
 
-  @IsEmail({}, { message: 'Email inválido' })
-  @Field(() => String)
+  @IsOptional()
+  @IsEmail({}, { message: 'Email inválido',  })
+  @Field(() => String, { nullable: true })
   email: string;
 
-  @IsNotEmpty({ message: 'A senha é obrigatório' })
-  @Field(() => String)
-  password: string;
-
-  @IsNotEmpty({ message: 'O nome é obrigatória' })
-  @Field(() => String)
+  @IsOptional({ message: 'O nome é obrigatória' })
+  @Field(() => String, { nullable: true })
   name: string;
 
-  @IsNotEmpty({ message: 'O número é obrigatória' })
-  @Field(() => String)
+  @IsOptional()
+  @Field(() => String, { nullable: true })
   phoneNumber: string;
   
-  @IsNotEmpty({ message: 'A specialties é obrigatória' })
-  @Field(() => String)
+  @IsOptional()
+  @Field(() => String, { nullable: true })
   specialties: string;
 
-  @IsNotEmpty({ message: 'A specialties é obrigatória' })
-  @Field(() => String)
+  @IsOptional()
+  @Field(() => String, { nullable: true })
   address: string;
 
-  @IsNotEmpty({ message: 'A specialties é obrigatória' })
-  @Field(() => String)
+  @IsOptional()
+  @Field(() => String, { nullable: true })
   servicePrice: string;
 
-  @IsNotEmpty({ message: 'A specialties é obrigatória' })
-  @Field(() => String)
+  @IsOptional()
+  @Field(() => String, { nullable: true })
   jobDescription: string;
+
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  photo: string;
 }

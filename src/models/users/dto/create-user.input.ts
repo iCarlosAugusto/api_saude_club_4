@@ -17,4 +17,8 @@ export class CreateUserInput {
   @IsNotEmpty({ message: 'O nome é obrigatória' })
   @Field(() => String)
   name: string;
+
+  @IsNotEmpty({ message: 'O número para contato é obrigatória' })
+  @Field(() => String)
+  phoneNumber: string;
 }

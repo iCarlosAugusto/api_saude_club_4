@@ -12,8 +12,8 @@ model User {
   createdAt         DateTime   @default(now())
   email             String     @unique
   password          String 
-  photo             String
-  phoneNumber       String 
+  photo             String?
+  phoneNumber       String
   name              String
   consults          Consult[]
 
@@ -25,7 +25,7 @@ model Partner {
   createdAt         DateTime     @default(now())
   name              String
   email             String
-  photo             String
+  photo             String?
   password          String
   specialties       String
   address           String
