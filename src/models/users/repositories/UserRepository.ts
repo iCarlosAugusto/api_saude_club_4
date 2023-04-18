@@ -50,6 +50,8 @@ class UserRepository implements IUserRepository {
       data: {
         name: data.name,
         email: data.email,
+        photo: data.photo,
+        phoneNumber: data.phoneNumber
       },
     })
     return updateUser;
