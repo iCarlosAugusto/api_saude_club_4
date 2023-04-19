@@ -12,9 +12,7 @@ export class ConsultsService {
     return await this.consultRepository.create(createConsultInput);
   }
 
-  async findAllClientConsults(
-    findAllClientConsults: FindAllClientConsultsInput,
-  ) {
+  async findAllClientConsults(findAllClientConsults: FindAllClientConsultsInput) {
     return await this.consultRepository.findAllClientConsults(
       findAllClientConsults,
     );

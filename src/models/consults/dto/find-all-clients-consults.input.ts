@@ -1,6 +1,7 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import {
   IsBoolean,
+  IsDate,
   IsEmail,
   IsNotEmpty,
   IsNumber,
@@ -24,4 +25,14 @@ export class FindAllClientConsultsInput {
   @IsNumber()
   @Field(() => Number, { defaultValue: 0 })
   skip?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Field(() => Number, { nullable: true })
+  startDateTimestamp?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Field(() => Number, { nullable: true })
+  limitDateTimestamp?: number;
 }

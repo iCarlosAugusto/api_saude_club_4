@@ -21,11 +21,17 @@ export class ConsultRepository {
     clientId,
     isFinished,
     skip,
+    startDateTimestamp,
+    limitDateTimestamp
   }: FindAllClientConsultsInput) {
     const consults = await this.prisma.consult.findMany({
       where: {
         clientId: clientId,
         isFinished,
+        createdAt: {
+          gte: new Date(startDateTimestamp).toISOString(),
+          lte: new Date(limitDateTimestamp).toISOString()
+        }
       },
       skip,
       take: 10,

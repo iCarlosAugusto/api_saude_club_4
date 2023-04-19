@@ -39,6 +39,7 @@ model Partner {
 
 model Consult {
   id          String     @default(uuid()) @id
+  createdAt   DateTime   @default(now())
   partnerId   String 
   partner     Partner    @relation(fields: [partnerId], references: [id])
   clientId    String
