@@ -4,6 +4,7 @@ import { ConsultEntity } from './entities/consult.entity';
 import { CreateConsultInput } from './dto/create-consult.input';
 import { UpdateConsultInput } from './dto/update-consult.input';
 import { FindAllClientConsultsInput } from './dto/find-all-clients-consults.input';
+import { FindOneConsultInput } from './dto/find-one-consult.input';
 
 
 @Resolver(() => ConsultEntity)
@@ -25,9 +26,9 @@ export class ConsultsResolver {
     return this.consultsService.findAllClientConsults(findAllClientConsults);
   }
 
-  @Query(() => ConsultEntity, { name: 'consult' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.consultsService.findOne(id);
+  @Query(() => ConsultEntity)
+  findOneConsult(@Args('findOneConsultInput') findOneConsultInput: FindOneConsultInput) {
+    return this.consultsService.findOne(findOneConsultInput);
   }
 
   @Mutation(() => ConsultEntity)

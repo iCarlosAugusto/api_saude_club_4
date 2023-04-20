@@ -3,6 +3,7 @@ import { CreateConsultInput } from './dto/create-consult.input';
 import { UpdateConsultInput } from './dto/update-consult.input';
 import { ConsultRepository } from './repository/consult.repository';
 import { FindAllClientConsultsInput } from './dto/find-all-clients-consults.input';
+import { FindOneConsultInput } from './dto/find-one-consult.input';
 
 @Injectable()
 export class ConsultsService {
@@ -18,8 +19,8 @@ export class ConsultsService {
     );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} consult`;
+  async findOne(findOneConultInput: FindOneConsultInput) {
+    return await this.consultRepository.findOneConsult(findOneConultInput);
   }
 
   update(id: number, updateConsultInput: UpdateConsultInput) {

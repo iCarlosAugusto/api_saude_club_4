@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateConsultInput } from '../dto/create-consult.input';
 import { PrismaService } from 'src/models/users/services/prima.service';
 import { FindAllClientConsultsInput } from '../dto/find-all-clients-consults.input';
+import { FindOneConsultInput } from '../dto/find-one-consult.input';
 
 @Injectable()
 export class ConsultRepository {
@@ -13,6 +14,15 @@ export class ConsultRepository {
         clientId,
         partnerId,
       },
+    });
+    return consult;
+  }
+
+  async findOneConsult({ id }: FindOneConsultInput){
+    const consult = await this.prisma.consult.findUnique({
+      where: {
+        id
+      }
     });
     return consult;
   }
