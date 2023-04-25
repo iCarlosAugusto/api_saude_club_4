@@ -14,4 +14,9 @@ export class CreateConsultInput {
   @Field(() => String)
   partnerId: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
+  serviceId: string;
+
 }

@@ -33,17 +33,40 @@ model Partner {
   servicePrice      String 
   jobDescription    String
   consults          Consult[]
+  services          Service[]
 
   @@map("partners")
 }
 
+
+model Service {
+  id                String        @default(uuid()) @id
+  createdAt         DateTime      @default(now())
+  name              String
+  description       String
+  price             String
+
+  partnerId         String 
+  partner           Partner       @relation(fields: [partnerId], references: [id])
+  
+  consult           Consult[]    
+
+  @@map("services")
+}
+
 model Consult {
-  id          String     @default(uuid()) @id
-  createdAt   DateTime   @default(now())
-  partnerId   String 
-  partner     Partner    @relation(fields: [partnerId], references: [id])
-  clientId    String
-  client      User       @relation(fields: [clientId], references: [id])
-  isFinished  Boolean    @default(false)
+  id                String     @default(uuid()) @id
+  createdAt         DateTime   @default(now())
+
+  partnerId         String 
+  partner           Partner    @relation(fields: [partnerId], references: [id])
+
+  clientId          String
+  client            User       @relation(fields: [clientId], references: [id])
+  
+  serviceId         String
+  service           Service    @relation(fields: [serviceId], references: [id])
+  
+  isFinished        Boolean    @default(false)
   @@map("consults")
 }

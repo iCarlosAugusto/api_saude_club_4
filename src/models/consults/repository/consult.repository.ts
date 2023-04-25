@@ -8,11 +8,12 @@ import { FindOneConsultInput } from '../dto/find-one-consult.input';
 export class ConsultRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create({ clientId, partnerId }: CreateConsultInput) {
+  async create({ clientId, partnerId, serviceId }: CreateConsultInput) {
     const consult = await this.prisma.consult.create({
       data: {
         clientId,
         partnerId,
+        serviceId
       },
     });
     return consult;

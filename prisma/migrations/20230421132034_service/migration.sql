@@ -4,7 +4,7 @@ CREATE TABLE "users" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "photo" TEXT NOT NULL,
+    "photo" TEXT,
     "phoneNumber" TEXT NOT NULL,
     "name" TEXT NOT NULL
 );
@@ -15,7 +15,7 @@ CREATE TABLE "partners" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "photo" TEXT NOT NULL,
+    "photo" TEXT,
     "password" TEXT NOT NULL,
     "specialties" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -25,13 +25,28 @@ CREATE TABLE "partners" (
 );
 
 -- CreateTable
+CREATE TABLE "services" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "price" TEXT NOT NULL,
+    "partnerId" TEXT NOT NULL,
+    "consultId" TEXT NOT NULL,
+    CONSTRAINT "services_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
 CREATE TABLE "consults" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "partnerId" TEXT NOT NULL,
     "clientId" TEXT NOT NULL,
+    "serviceId" TEXT NOT NULL,
     "isFinished" BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT "consults_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "consults_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "consults_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "consults_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "services" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
