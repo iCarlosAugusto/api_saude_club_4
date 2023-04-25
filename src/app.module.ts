@@ -5,7 +5,7 @@ import { UsersModule } from './models/users/users.module';
 import { PartnersModule } from './models/partners/partners.module';
 import { ConsultsModule } from './models/consults/consults.module';
 import { ServicesModule } from './models/services/services.module';
-//Teste3
+//Teste4
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
