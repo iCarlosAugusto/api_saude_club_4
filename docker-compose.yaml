@@ -2,6 +2,8 @@ version: '3.7'
 
 services:
   api:
+
+  
     container_name: api
     restart: always
     build:
@@ -10,7 +12,19 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DATABASE_URL=file:./dev.db
-
+      - DATABASE_URL=postgresql://root:root@database:5432/saudeclub_db
+    depends_on:
+      - database
     volumes: 
       - .:/usr/app
+      
+  database:
+    container_name: database
+    restart: always
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=saudeclub_db
