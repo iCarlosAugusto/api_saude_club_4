@@ -39,10 +39,10 @@ export class ConsultRepository {
       where: {
         clientId: clientId,
         isFinished,
-        createdAt: {
-          gte: new Date(startDateTimestamp).toISOString(),
-          lte: new Date(limitDateTimestamp).toISOString()
-        }
+        //createdAt: {
+        //  gte: new Date(startDateTimestamp).toISOString(),
+        //  lte: new Date(limitDateTimestamp).toISOString()
+        //}
       },
       skip,
       take: 10,
