@@ -12,7 +12,8 @@ export class AuthenticationRepository {
   async authenticate({ identification, password }: AuthenticationInput) {
     const user = await this.prisma.user.findFirst({
       where: { 
-        name: identification
+        identification,
+        password
       }
     });
   
@@ -21,11 +22,11 @@ export class AuthenticationRepository {
     }else{
       const partner = await this.prisma.partner.findFirst({
         where: { 
-          name: identification
+          identification,
+          password
         }
       })
       return { partner };
     }
-    console.log('Puloaki')
   }
 }

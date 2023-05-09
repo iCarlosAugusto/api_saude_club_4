@@ -7,6 +7,9 @@ export class PartnerEntity {
   id: string;
 
   @Field(() => String)
+  identification: string;
+
+  @Field(() => String)
   createdAt: Date;
 
   @Field(() => String)

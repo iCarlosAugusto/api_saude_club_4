@@ -15,6 +15,7 @@ export class PartnerRepository {
     async create(data: CreatePartnerInput): Promise<Partner> {
         const partner = await this.prisma.partner.create({
             data: {
+                identification: data.identification,
                 password: data.password,
                 email: data.email,
                 name: data.name,
