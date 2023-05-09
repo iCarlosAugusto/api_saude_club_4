@@ -4,7 +4,7 @@ WORKDIR /usr/app
 
 COPY package.json ./
 
-COPY . /usr/app/
+COPY . .
 
 RUN npm install
 RUN npx prisma db pull

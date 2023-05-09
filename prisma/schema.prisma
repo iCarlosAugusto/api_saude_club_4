@@ -5,69 +5,63 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id                String     @default(uuid()) @id
-  createdAt         DateTime   @default(now())
-  email             String     @unique
-  password          String 
-  photo             String?
-  phoneNumber       String
-  name              String
-  consults          Consult[]
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  email       String    @unique
+  password    String
+  photo       String?
+  phoneNumber String
+  name        String
+  consults    Consult[]
 
   @@map("users")
 }
 
 model Partner {
-  id                String       @default(uuid()) @id
-  createdAt         DateTime     @default(now())
-  name              String
-  email             String
-  photo             String?
-  password          String
-  specialties       String
-  address           String
-  phoneNumber       String 
-  servicePrice      String 
-  jobDescription    String
-  consults          Consult[]
-  services          Service[]
+  id             String    @id @default(uuid())
+  createdAt      DateTime  @default(now())
+  name           String
+  email          String
+  photo          String?
+  password       String
+  specialties    String
+  address        String
+  phoneNumber    String
+  servicePrice   String
+  jobDescription String
+  consults       Consult[]
+  services       Service[]
 
   @@map("partners")
 }
 
-
 model Service {
-  id                String        @default(uuid()) @id
-  createdAt         DateTime      @default(now())
-  name              String
-  description       String
-  price             String
-
-  partnerId         String 
-  partner           Partner       @relation(fields: [partnerId], references: [id])
-  
-  consult           Consult[]    
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  name        String
+  description String
+  price       String
+  partnerId   String
+  consult     Consult[]
+  partner     Partner   @relation(fields: [partnerId], references: [id])
 
   @@map("services")
 }
 
 model Consult {
-  id                String     @default(uuid()) @id
-  createdAt         DateTime   @default(now())
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  partnerId  String
+  clientId   String
+  serviceId  String
+  isFinished Boolean  @default(false)
+  service    Service  @relation(fields: [serviceId], references: [id])
+  client     User     @relation(fields: [clientId], references: [id])
+  partner    Partner  @relation(fields: [partnerId], references: [id])
 
-  partnerId         String 
-  partner           Partner    @relation(fields: [partnerId], references: [id])
-
-  clientId          String
-  client            User       @relation(fields: [clientId], references: [id])
-  
-  serviceId         String
-  service           Service    @relation(fields: [serviceId], references: [id])
-
-  isFinished        Boolean    @default(false)
   @@map("consults")
 }

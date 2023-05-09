@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.0'
 
 services:
   api:
@@ -8,5 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+    environment:
+      - DATABASE_URL=file:./dev.db
     volumes: 
       - .:/usr/app
