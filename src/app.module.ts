@@ -5,6 +5,7 @@ import { UsersModule } from './models/users/users.module';
 import { PartnersModule } from './models/partners/partners.module';
 import { ConsultsModule } from './models/consults/consults.module';
 import { ServicesModule } from './models/services/services.module';
+import { AuthenticationModule } from './models/authentication/authentication.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ServicesModule } from './models/services/services.module';
     PartnersModule,
     ConsultsModule,
     ServicesModule,
+    AuthenticationModule,
   ],
   controllers: [],
   providers: [],
