@@ -4,6 +4,7 @@ import { UpdateConsultInput } from './dto/update-consult.input';
 import { ConsultRepository } from './repository/consult.repository';
 import { FindAllClientConsultsInput } from './dto/find-all-clients-consults.input';
 import { FindOneConsultInput } from './dto/find-one-consult.input';
+import { FindAllPartnerConsultsInput } from './dto/find-all-partner-consults.input';
 
 @Injectable()
 export class ConsultsService {
@@ -16,6 +17,12 @@ export class ConsultsService {
   async findAllClientConsults(findAllClientConsults: FindAllClientConsultsInput) {
     return await this.consultRepository.findAllClientConsults(
       findAllClientConsults,
+    );
+  }
+
+  async findAllPartnerConsults(findAllPartnerConsults: FindAllPartnerConsultsInput) {
+    return await this.consultRepository.findAllPartnerConsults(
+      findAllPartnerConsults,
     );
   }
 

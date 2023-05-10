@@ -5,6 +5,8 @@ import { CreateConsultInput } from './dto/create-consult.input';
 import { UpdateConsultInput } from './dto/update-consult.input';
 import { FindAllClientConsultsInput } from './dto/find-all-clients-consults.input';
 import { FindOneConsultInput } from './dto/find-one-consult.input';
+import { FindAllParnerstInput } from '../partners/dto/find-all-partners.input';
+import { FindAllPartnerConsultsInput } from './dto/find-all-partner-consults.input';
 
 
 @Resolver(() => ConsultEntity)
@@ -24,6 +26,14 @@ export class ConsultsResolver {
     findAllClientConsults: FindAllClientConsultsInput,
   ) {
     return this.consultsService.findAllClientConsults(findAllClientConsults);
+  }
+
+  @Query(() => [ConsultEntity])
+  findAllPartnerConsults(
+    @Args('findAllPartnerConsultsInput')
+    findAllPartnerConsults: FindAllPartnerConsultsInput,
+  ) {
+    return this.consultsService.findAllPartnerConsults(findAllPartnerConsults);
   }
 
   @Query(() => ConsultEntity)

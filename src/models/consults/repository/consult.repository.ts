@@ -3,6 +3,7 @@ import { CreateConsultInput } from '../dto/create-consult.input';
 import { PrismaService } from 'src/models/users/services/prima.service';
 import { FindAllClientConsultsInput } from '../dto/find-all-clients-consults.input';
 import { FindOneConsultInput } from '../dto/find-one-consult.input';
+import { FindAllPartnerConsultsInput } from '../dto/find-all-partner-consults.input';
 
 @Injectable()
 export class ConsultRepository {
@@ -38,6 +39,34 @@ export class ConsultRepository {
     const consults = await this.prisma.consult.findMany({
       where: {
         clientId: clientId,
+        isFinished,
+        //createdAt: {
+        //  gte: new Date(startDateTimestamp).toISOString(),
+        //  lte: new Date(limitDateTimestamp).toISOString()
+        //}
+      },
+      skip,
+      take: 10,
+      include: {
+        client: true,
+        partner: true,
+        service: true,
+      }
+    });
+
+    return consults;
+  }
+
+  async findAllPartnerConsults({
+    partnerId,
+    isFinished,
+    skip,
+    startDateTimestamp,
+    limitDateTimestamp
+  }: FindAllPartnerConsultsInput) {
+    const consults = await this.prisma.consult.findMany({
+      where: {
+        partnerId: partnerId,
         isFinished,
         //createdAt: {
         //  gte: new Date(startDateTimestamp).toISOString(),
