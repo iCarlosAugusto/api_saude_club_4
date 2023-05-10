@@ -46,6 +46,11 @@ export class ConsultRepository {
       },
       skip,
       take: 10,
+      include: {
+        client: true,
+        partner: true,
+        service: true,
+      }
     });
 
     return consults;

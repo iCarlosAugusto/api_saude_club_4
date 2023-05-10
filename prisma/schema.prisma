@@ -42,14 +42,19 @@ model Partner {
 }
 
 model Service {
-  id          String    @id @default(uuid())
-  createdAt   DateTime  @default(now())
-  name        String
-  description String
-  price       String
-  partnerId   String
-  consult     Consult[]
-  partner     Partner   @relation(fields: [partnerId], references: [id])
+  id            String    @id @default(uuid())
+  createdAt     DateTime  @default(now())
+  name          String
+  description   String
+  price         String
+  partnerName   String
+  partnerPhoto  String
+  specialitie   String
+  address       String
+  partnerId     String
+  bannerImage   String
+  consult       Consult[]
+  partner       Partner   @relation(fields: [partnerId], references: [id])
 
   @@map("services")
 }

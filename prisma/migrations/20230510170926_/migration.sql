@@ -33,7 +33,12 @@ CREATE TABLE "services" (
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "price" TEXT NOT NULL,
+    "partnerName" TEXT NOT NULL,
+    "partnerPhoto" TEXT NOT NULL,
+    "specialitie" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
     "partnerId" TEXT NOT NULL,
+    "bannerImage" TEXT NOT NULL,
     CONSTRAINT "services_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
