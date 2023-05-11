@@ -41,6 +41,17 @@ model Partner {
   @@map("partners")
 }
 
+model Admin {
+  id               String     @id @default(uuid())
+  createdAt        DateTime   @default(now())
+  identification   String
+  name             String
+  email            String
+  phoneNumber      String
+  photo            String
+  password         String
+}
+
 model Service {
   id            String    @id @default(uuid())
   createdAt     DateTime  @default(now())

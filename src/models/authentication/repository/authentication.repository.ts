@@ -26,7 +26,20 @@ export class AuthenticationRepository {
           password
         }
       })
-      return { partner };
+      if(partner != null){
+        return { partner };
+      }
+
+      const admin = await this.prisma.admin.findFirst({
+        where: {
+          identification,
+          password
+        }
+      })
+
+      if(admin != null){
+        return { admin };
+      }
     }
   }
 }

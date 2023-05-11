@@ -27,6 +27,18 @@ CREATE TABLE "partners" (
 );
 
 -- CreateTable
+CREATE TABLE "Admin" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "identification" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phoneNumber" TEXT NOT NULL,
+    "photo" TEXT NOT NULL,
+    "password" TEXT NOT NULL
+);
+
+-- CreateTable
 CREATE TABLE "services" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

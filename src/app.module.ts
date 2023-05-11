@@ -6,6 +6,7 @@ import { PartnersModule } from './models/partners/partners.module';
 import { ConsultsModule } from './models/consults/consults.module';
 import { ServicesModule } from './models/services/services.module';
 import { AuthenticationModule } from './models/authentication/authentication.module';
+import { AdminModule } from './models/admin/admin.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AuthenticationModule } from './models/authentication/authentication.mod
     }),
     UsersModule,
     PartnersModule,
+    AdminModule,
     ConsultsModule,
     ServicesModule,
     AuthenticationModule,
