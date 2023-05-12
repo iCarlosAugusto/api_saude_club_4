@@ -7,6 +7,9 @@ export class ServiceEntity {
 
   @Field(() => String)
   id: string;
+  
+  @Field(() => Date)
+  createdAt: string;
 
   @Field(() => String)
   name: string;
