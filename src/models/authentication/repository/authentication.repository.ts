@@ -1,45 +1,60 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/models/users/services/prima.service';
 import { AuthenticationInput } from '../dto/authentication.input';
-import { Partner } from '@prisma/client';
-import { User } from 'src/models/users/entities/user.entity';
-import { PartnerEntity } from 'src/models/partners/entities/partner.entity';
 
 @Injectable()
 export class AuthenticationRepository {
   constructor(private prisma: PrismaService) {}
 
-  async authenticate({ identification, password }: AuthenticationInput) {
+  async authenticate({ identification, password, email }: AuthenticationInput) {
     const user = await this.prisma.user.findFirst({
-      where: { 
-        identification,
-        password
-      }
+      where: {
+        OR: [
+          {
+            email,
+            password
+          }, 
+          {
+            identification,
+            password
+          }
+        ]
+      },
     });
   
-    if(user != null) {
-      return { user };
-    }else{
-      const partner = await this.prisma.partner.findFirst({
-        where: { 
-          identification,
-          password
-        }
-      })
-      if(partner != null){
-        return { partner };
-      }
+    if(user != null) return { user };
+  
+    const partner = await this.prisma.partner.findFirst({
+      where: {
+        OR: [
+          {
+            email,
+            password
+          }, 
+          {
+            identification,
+            password
+          }
+        ]
+      },
+    })
+    if(partner != null) return { partner };
 
-      const admin = await this.prisma.admin.findFirst({
-        where: {
-          identification,
-          password
-        }
-      })
-
-      if(admin != null){
-        return { admin };
-      }
-    }
+    const admin = await this.prisma.admin.findFirst({
+      where: {
+        OR: [
+          {
+            email,
+            password
+          }, 
+          {
+            identification,
+            password
+          }
+        ]
+      },
+    })
+    if(admin != null) return { admin };
+    throw new NotFoundException('Nenhum usuário encontrado') 
   }
 }
