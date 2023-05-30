@@ -11,4 +11,7 @@ export class CompanyEntity {
 
   @Field(() => String)
   availableDay: Date;
+
+  @Field(() => String)
+  bannerImage: String;
 }

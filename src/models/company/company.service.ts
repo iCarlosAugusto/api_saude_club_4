@@ -9,11 +9,12 @@ import { FindAllClassesInput } from './dtos/find-classes.input';
 export class CompanyService {
   constructor(private prisma: PrismaService) {}
 
-  async create({ name, availableDay }: CreateCompanyInput) {
+  async create({ name, availableDay, bannerImage }: CreateCompanyInput) {
     return await this.prisma.company.create({
       data: {
         name,
-        availableDay
+        availableDay,
+        bannerImage
       }
     })
   }
