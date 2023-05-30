@@ -41,6 +41,21 @@ model Partner {
   @@map("partners")
 }
 
+model Company {
+  id             String   @id @default(uuid())
+  name           String
+  availableDay   String
+  classes        Class[]
+}
+
+model Class {
+  id            String    @id @default(uuid())
+  name          String
+  companyId     String
+  company       Company   @relation(fields: [companyId], references: [id])
+}
+
+
 model Admin {
   id               String     @id @default(uuid())
   createdAt        DateTime   @default(now())

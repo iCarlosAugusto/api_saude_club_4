@@ -7,6 +7,7 @@ import { ConsultsModule } from './models/consults/consults.module';
 import { ServicesModule } from './models/services/services.module';
 import { AuthenticationModule } from './models/authentication/authentication.module';
 import { AdminModule } from './models/admin/admin.module';
+import { CompanyModule } from './models/company/company.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AdminModule } from './models/admin/admin.module';
     ConsultsModule,
     ServicesModule,
     AuthenticationModule,
+    CompanyModule
   ],
   controllers: [],
   providers: [],
