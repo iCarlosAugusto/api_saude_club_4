@@ -9,6 +9,6 @@ export class CompanyEntity {
   @Field(() => String)
   name: string;
 
-  @Field(() => Date)
+  @Field(() => String)
   availableDay: Date;
 }

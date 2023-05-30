@@ -27,6 +27,21 @@ CREATE TABLE "partners" (
 );
 
 -- CreateTable
+CREATE TABLE "Company" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "availableDay" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Class" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "companyId" TEXT NOT NULL,
+    CONSTRAINT "Class_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
 CREATE TABLE "Admin" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
