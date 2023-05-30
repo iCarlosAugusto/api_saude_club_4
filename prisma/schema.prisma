@@ -51,6 +51,8 @@ model Company {
 model Class {
   id            String    @id @default(uuid())
   name          String
+  lots          Int
+  startAt       String
   companyId     String
   company       Company   @relation(fields: [companyId], references: [id])
 }
