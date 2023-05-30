@@ -6,6 +6,7 @@ import { FindCompaniesByDateInput } from './dtos/find-companies-by-date.input';
 import { CreateClassInput } from './dtos/create-class.input';
 import { ClassEntity } from './entities/class.entity';
 import { FindAllClassesInput } from './dtos/find-classes.input';
+import { BookClassInput } from './dtos/book-class.input';
 
 @Resolver(() => CompanyEntity)
 export class CompanyResolver {
@@ -42,5 +43,12 @@ export class CompanyResolver {
     @Args('findAllClasses') findAllClasses: FindAllClassesInput
   ){
     return this.companyService.findAllClasses(findAllClasses)
+  }
+
+  @Mutation(() => ClassEntity)
+  bookClass(
+    @Args('bookClassInput') bookClassInput: BookClassInput
+  ){
+    return this.companyService.bookClass(bookClassInput);
   }
 }

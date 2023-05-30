@@ -4,6 +4,7 @@ import { PrismaService } from '../users/services/prima.service';
 import { FindCompaniesByDateInput } from './dtos/find-companies-by-date.input';
 import { CreateClassInput } from './dtos/create-class.input';
 import { FindAllClassesInput } from './dtos/find-classes.input';
+import { BookClassInput } from './dtos/book-class.input';
 
 @Injectable()
 export class CompanyService {
@@ -53,6 +54,19 @@ export class CompanyService {
     return this.prisma.class.findMany({
       where: {
         companyId
+      }
+    })
+  }
+
+  async bookClass({ classId }: BookClassInput) {
+    return this.prisma.class.update({
+      where: {
+        id: classId,
+      },
+      data: {
+        lots: {
+          decrement: 1
+        }
       }
     })
   }
