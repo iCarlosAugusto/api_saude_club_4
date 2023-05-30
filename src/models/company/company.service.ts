@@ -31,12 +31,15 @@ export class CompanyService {
     })
   }
 
-  async createClass({name, lots, startAt, companyId}: CreateClassInput){
+  async createClass({name, lots, startAt, companyId, address, description, place }: CreateClassInput){
     return this.prisma.class.create({
       data: {
         name,
         lots,
         startAt,
+        address,
+        description,
+        place,
         companyId,
       }
     })

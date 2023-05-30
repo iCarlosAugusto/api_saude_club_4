@@ -37,6 +37,11 @@ CREATE TABLE "Company" (
 CREATE TABLE "Class" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "lots" INTEGER NOT NULL,
+    "startAt" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "place" TEXT NOT NULL,
     "companyId" TEXT NOT NULL,
     CONSTRAINT "Class_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

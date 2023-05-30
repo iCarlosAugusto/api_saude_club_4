@@ -9,6 +9,11 @@ export class CreateClassInput {
   @Field(() => String)
   name: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
+  description : string;
+
   @IsNumber()
   @IsNotEmpty()
   @Field(() => Number)
@@ -19,6 +24,16 @@ export class CreateClassInput {
   @Field(() => String)
   startAt: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  address: string; 
+  
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  place: string;
+  
   @IsString()
   @IsNotEmpty()
   @Field(() => String)
