@@ -57,6 +57,9 @@ model Class {
   startAt       String
   address       String
   place         String
+  price         String
+  bannerImage   String
+  teacherName   String
   companyId     String
   company       Company   @relation(fields: [companyId], references: [id])
 }

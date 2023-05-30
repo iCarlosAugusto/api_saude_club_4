@@ -23,4 +23,14 @@ export class ClassEntity {
 
   @Field(() => String)
   place: string;
+
+  @Field(() => String)
+  price: string;
+
+  @Field(() => String)
+  bannerImage: string;
+
+  @Field(() => String)
+  teacherName: string;
+  
 }

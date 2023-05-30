@@ -30,7 +30,8 @@ CREATE TABLE "partners" (
 CREATE TABLE "Company" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
-    "availableDay" TEXT NOT NULL
+    "availableDay" TEXT NOT NULL,
+    "bannerImage" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -42,6 +43,9 @@ CREATE TABLE "Class" (
     "startAt" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "place" TEXT NOT NULL,
+    "price" TEXT NOT NULL,
+    "bannerImage" TEXT NOT NULL,
+    "teacherName" TEXT NOT NULL,
     "companyId" TEXT NOT NULL,
     CONSTRAINT "Class_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

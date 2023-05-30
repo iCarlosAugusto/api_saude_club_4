@@ -33,6 +33,21 @@ export class CreateClassInput {
   @IsNotEmpty()
   @Field(() => String)
   place: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  price: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  bannerImage: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  teacherName: string;
   
   @IsString()
   @IsNotEmpty()
