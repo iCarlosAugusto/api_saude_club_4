@@ -31,7 +31,9 @@ CREATE TABLE "Company" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "availableDay" TEXT NOT NULL,
-    "bannerImage" TEXT NOT NULL
+    "bannerImage" TEXT NOT NULL,
+    "partnerId" TEXT NOT NULL,
+    CONSTRAINT "Company_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

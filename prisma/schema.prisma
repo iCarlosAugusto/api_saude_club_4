@@ -37,6 +37,7 @@ model Partner {
   jobDescription String
   consults       Consult[]
   services       Service[]
+  companies      Company[]
 
   @@map("partners")
 }
@@ -47,6 +48,8 @@ model Company {
   availableDay   String
   bannerImage    String
   classes        Class[]
+  partnerId      String
+  partner        Partner @relation(fields: [partnerId], references: [id])
 }
 
 model Class {
