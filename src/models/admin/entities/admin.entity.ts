@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { PartnerEntity } from 'src/models/partners/entities/partner.entity';
-import { User } from 'src/models/users/entities/user.entity';
+import { User } from 'src/models/users/entities/client.entity';
 
 @ObjectType()
 export class AdminEntity {

@@ -7,7 +7,7 @@ export class AuthenticationRepository {
   constructor(private prisma: PrismaService) {}
 
   async authenticate({ identification, password, email }: AuthenticationInput) {
-    const user = await this.prisma.user.findFirst({
+    const user = await this.prisma.client.findFirst({
       where: {
         OR: [
           {

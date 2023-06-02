@@ -1,49 +1,49 @@
-import { User } from '@prisma/client';
-import { IUserRepository } from './IUserRepository';
+import { Client } from '@prisma/client';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../services/prima.service';
-import { CreateUserInput } from '../dto/create-user.input';
-import { UpdateUserInput } from '../dto/update-user.input';
 import { UpdatePasswordClientInput } from '../dto/update-password-client.input';
+import { IClientRepository } from './IUserRepository';
+import { CreateClientInput } from '../dto/create-client.input';
+import { UpdateClientInput } from '../dto/update-client.input';
 
 @Injectable()
-class UserRepository implements IUserRepository {
+class ClientRepository implements IClientRepository {
 
   constructor(private prisma: PrismaService) {};
 
-  async create(data: CreateUserInput): Promise<User> {
-    const isUserRepeted = await this.prisma.client.findUnique({
+  async create(data: CreateClientInput): Promise<Client> {
+    const isClientRepeted = await this.prisma.client.findUnique({
       where: {
         email: data.email
       }
     });
-    if(!!isUserRepeted){
+    if(!!isClientRepeted){
       throw new HttpException(
         'Esse email já é usado por outro usuário. Por favor, tente outro.',
          HttpStatus.BAD_REQUEST
       );
     }
 
-    const user: User = await this.prisma.client.create({ data });
-    return user;
+    const Client: Client = await this.prisma.client.create({ data });
+    return Client;
   }
 
-  async findOne(id: string): Promise<User> {
-    const user = await this.prisma.client.findFirst({
+  async findOne(id: string): Promise<Client> {
+    const Client = await this.prisma.client.findFirst({
       where: {
         id: id
       }
     })
-    return user;
+    return Client;
   }
 
-  async findAll(): Promise<User[]> {
-    const users = await this.prisma.client.findMany();
-    return users;
+  async findAll(): Promise<Client[]> {
+    const Clients = await this.prisma.client.findMany();
+    return Clients;
   }
 
-  async update(data: UpdateUserInput): Promise<User> {
-    const updateUser = await this.prisma.client.update({
+  async update(data: UpdateClientInput): Promise<Client> {
+    const updateClient = await this.prisma.client.update({
       where: {
         id: data.id
       },
@@ -54,10 +54,10 @@ class UserRepository implements IUserRepository {
         phoneNumber: data.phoneNumber
       },
     })
-    return updateUser;
+    return updateClient;
   }
   
-  async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordClientInput): Promise<User> {
+  async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordClientInput): Promise<Client> {
     const client = await this.prisma.client.findUnique({
       where: {
         id: id
@@ -77,4 +77,4 @@ class UserRepository implements IUserRepository {
   }
 }
 
-export { UserRepository };
+export { ClientRepository };

@@ -1,11 +1,11 @@
-import { User } from "@prisma/client";
-import { CreateUserInput } from "../dto/create-user.input";
-import { UpdateUserInput } from "../dto/update-user.input";
+import { Client } from "@prisma/client";
+import { CreateClientInput } from "../dto/create-client.input";
+import { UpdateClientInput } from "../dto/update-client.input";
 
-interface IUserRepository {
-  create(data: CreateUserInput): Promise<User>;
-  findOne(id: string): Promise<User>;
-  update(data: UpdateUserInput): Promise<User>;
+interface IClientRepository {
+  create(data: CreateClientInput): Promise<Client>;
+  findOne(id: string): Promise<Client>;
+  update(data: UpdateClientInput): Promise<Client>;
 }
 
-export { IUserRepository }
+export { IClientRepository }
