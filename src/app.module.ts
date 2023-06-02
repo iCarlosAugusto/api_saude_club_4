@@ -1,13 +1,13 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { UsersModule } from './models/users/client.module';
 import { PartnersModule } from './models/partners/partners.module';
 import { ConsultsModule } from './models/consults/consults.module';
 import { ServicesModule } from './models/services/services.module';
 import { AuthenticationModule } from './models/authentication/authentication.module';
 import { AdminModule } from './models/admin/admin.module';
 import { CompanyModule } from './models/company/company.module';
+import { ClientsModule } from './models/users/client.module';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { CompanyModule } from './models/company/company.module';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
-    UsersModule,
+    ClientsModule,
     PartnersModule,
     AdminModule,
     ConsultsModule,

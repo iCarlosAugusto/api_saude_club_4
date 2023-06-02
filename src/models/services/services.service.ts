@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateServiceInput } from './dto/create-service.input';
 import { UpdateServiceInput } from './dto/update-service.input';
-import { UserRepository } from '../users/repositories/UserRepository';
 import { ServiceRepository } from './repositories/ServiceRepository';
 import { FindAllServicesInput } from './dto/find-all-services.input';
 

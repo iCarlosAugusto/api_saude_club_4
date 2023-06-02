@@ -18,8 +18,8 @@ model Client {
   phoneNumber    String
   name           String
   consults       Consult[]
-  partner        Partner?  @relation(fields: [partnerId], references: [id])
-  partnerId      String?
+  partner        Partner  @relation(fields: [partnerId], references: [id])
+  partnerId      String
 
   @@map("client")
 }

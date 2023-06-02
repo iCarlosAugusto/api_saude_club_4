@@ -26,4 +26,10 @@ export class CreateClientInput {
   @IsNotEmpty({ message: 'O número para contato é obrigatória' })
   @Field(() => String)
   phoneNumber: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
+  partnerId: string;
+  
 }
