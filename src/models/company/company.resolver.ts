@@ -7,6 +7,7 @@ import { CreateClassInput } from './dtos/create-class.input';
 import { ClassEntity } from './entities/class.entity';
 import { FindAllClassesInput } from './dtos/find-classes.input';
 import { BookClassInput } from './dtos/book-class.input';
+import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
 
 @Resolver(() => CompanyEntity)
 export class CompanyResolver {
@@ -17,6 +18,13 @@ export class CompanyResolver {
     @Args('createCompanyInput') createCompanyInput: CreateCompanyInput,
   ) {
     return this.companyService.create(createCompanyInput);
+  }
+
+  @Query(() => [ CompanyEntity ])
+  findCompanyByPartnerId(
+    @Args('findCompanyByPartnerId') findCompanyByPartnerId: FindCompanyByPartnerIdInput
+  ) {
+    return this.companyService.findByPartnerId(findCompanyByPartnerId);
   }
 
   @Query(() => [CompanyEntity])

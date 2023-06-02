@@ -18,4 +18,9 @@ export class CreateCompanyInput {
   @IsNotEmpty()
   @Field(() => String)
   bannerImage: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  partnerId: string;
 }

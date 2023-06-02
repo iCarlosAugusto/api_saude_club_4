@@ -12,49 +12,49 @@ export class AuthenticationRepository {
         OR: [
           {
             email,
-            password
-          }, 
+            password,
+          },
           {
             identification,
-            password
-          }
-        ]
+            password,
+          },
+        ],
       },
     });
-  
-    if(user != null) return { user };
-  
+
+    if (user != null) return { user };
+
     const partner = await this.prisma.partner.findFirst({
       where: {
         OR: [
           {
             email,
-            password
-          }, 
+            password,
+          },
           {
             identification,
-            password
-          }
-        ]
+            password,
+          },
+        ],
       },
-    })
-    if(partner != null) return { partner };
+    });
+    if (partner != null) return { partner };
 
     const admin = await this.prisma.admin.findFirst({
       where: {
         OR: [
           {
             email,
-            password
-          }, 
+            password,
+          },
           {
             identification,
-            password
-          }
-        ]
+            password,
+          },
+        ],
       },
-    })
-    if(admin != null) return { admin };
-    throw new NotFoundException('Nenhum usuário encontrado') 
+    });
+    if (admin != null) return { admin };
+    throw new NotFoundException('Nenhum usuário encontrado');
   }
 }

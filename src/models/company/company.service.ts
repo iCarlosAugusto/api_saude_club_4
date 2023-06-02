@@ -5,23 +5,33 @@ import { FindCompaniesByDateInput } from './dtos/find-companies-by-date.input';
 import { CreateClassInput } from './dtos/create-class.input';
 import { FindAllClassesInput } from './dtos/find-classes.input';
 import { BookClassInput } from './dtos/book-class.input';
+import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
 
 @Injectable()
 export class CompanyService {
   constructor(private prisma: PrismaService) {}
 
-  async create({ name, availableDay, bannerImage }: CreateCompanyInput) {
+  async create({ name, availableDay, bannerImage, partnerId }: CreateCompanyInput) {
     return await this.prisma.company.create({
       data: {
         name,
         availableDay,
-        bannerImage
+        bannerImage,
+        partnerId 
       }
     })
   }
 
   async findAll() {
     return await this.prisma.company.findMany();
+  }
+
+  async findByPartnerId({ partnerId }: FindCompanyByPartnerIdInput) {
+    return await this.prisma.company.findMany({
+      where: {
+        partnerId
+      }
+    })
   }
 
   async findByDate({ date }: FindCompaniesByDateInput) {
