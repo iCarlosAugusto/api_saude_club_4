@@ -12,7 +12,7 @@ class UserRepository implements IUserRepository {
   constructor(private prisma: PrismaService) {};
 
   async create(data: CreateUserInput): Promise<User> {
-    const isUserRepeted = await this.prisma.user.findUnique({
+    const isUserRepeted = await this.prisma.client.findUnique({
       where: {
         email: data.email
       }
@@ -24,12 +24,12 @@ class UserRepository implements IUserRepository {
       );
     }
 
-    const user: User = await this.prisma.user.create({ data });
+    const user: User = await this.prisma.client.create({ data });
     return user;
   }
 
   async findOne(id: string): Promise<User> {
-    const user = await this.prisma.user.findFirst({
+    const user = await this.prisma.client.findFirst({
       where: {
         id: id
       }
@@ -38,12 +38,12 @@ class UserRepository implements IUserRepository {
   }
 
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.client.findMany();
     return users;
   }
 
   async update(data: UpdateUserInput): Promise<User> {
-    const updateUser = await this.prisma.user.update({
+    const updateUser = await this.prisma.client.update({
       where: {
         id: data.id
       },
@@ -58,13 +58,13 @@ class UserRepository implements IUserRepository {
   }
   
   async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordClientInput): Promise<User> {
-    const client = await this.prisma.user.findUnique({
+    const client = await this.prisma.client.findUnique({
       where: {
         id: id
       }
     })
     if(client.password !== currentPassword) throw new Error("Senha atual incorreta"); 
-    const updatedPasswordClient = await this.prisma.user.update({
+    const updatedPasswordClient = await this.prisma.client.update({
       where: {
         id: id,
       },

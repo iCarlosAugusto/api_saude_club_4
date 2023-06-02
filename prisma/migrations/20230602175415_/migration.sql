@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "users" (
+CREATE TABLE "client" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "email" TEXT NOT NULL,
@@ -7,7 +7,9 @@ CREATE TABLE "users" (
     "password" TEXT NOT NULL,
     "photo" TEXT,
     "phoneNumber" TEXT NOT NULL,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL,
+    "partnerId" TEXT,
+    CONSTRAINT "client_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -89,15 +91,15 @@ CREATE TABLE "consults" (
     "serviceId" TEXT NOT NULL,
     "isFinished" BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT "consults_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "services" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "consults_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "consults_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "client" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "consults_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+CREATE UNIQUE INDEX "client_email_key" ON "client"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_identification_key" ON "users"("identification");
+CREATE UNIQUE INDEX "client_identification_key" ON "client"("identification");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "partners_identification_key" ON "partners"("identification");
