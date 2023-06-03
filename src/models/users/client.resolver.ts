@@ -1,35 +1,35 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { UpdatePasswordClientInput } from './dto/update-password-client.input';
-import { Client } from './entities/client.entity';
+import { ClientEntity } from './entities/client.entity';
 import { CreateClientInput } from './dto/create-client.input';
 import { UpdateClientInput } from './dto/update-client.input';
 import { ClientService } from './client.service';
 
-@Resolver(() => Client)
+@Resolver(() => ClientEntity)
 export class ClientResolver {
   constructor(private readonly clientsService: ClientService) {}
 
-  @Mutation(() => Client)
+  @Mutation(() => ClientEntity)
   createClient(@Args('createClientInput') createClientInput: CreateClientInput) {
     return this.clientsService.create(createClientInput);
   }
 
-  @Query(() => Client)
+  @Query(() => ClientEntity)
   findOneClient(@Args('id', { type: () => String }) id: string) {
     return this.clientsService.findOne(id);
   }
 
-  @Query(() => [Client])
+  @Query(() => [ClientEntity])
   findAllClient() {
     return this.clientsService.findAll();
   }
 
-  @Mutation(() => Client)
+  @Mutation(() => ClientEntity)
   updateClient(@Args('updateClientInput') updateClientInput: UpdateClientInput) {
     return this.clientsService.update(updateClientInput);
   }
 
-  @Mutation(() => Client)
+  @Mutation(() => ClientEntity)
   updatePasswordClient(@Args('updatePasswordInput') updatePasswordInput: UpdatePasswordClientInput) {
     return this.clientsService.updatePassword(updatePasswordInput)
   }

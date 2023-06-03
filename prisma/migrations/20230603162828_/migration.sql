@@ -8,8 +8,8 @@ CREATE TABLE "client" (
     "photo" TEXT,
     "phoneNumber" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "partnerId" TEXT,
-    CONSTRAINT "client_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    "partnerId" TEXT NOT NULL,
+    CONSTRAINT "client_partnerId_fkey" FOREIGN KEY ("partnerId") REFERENCES "partners" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
