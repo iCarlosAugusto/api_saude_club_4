@@ -9,4 +9,9 @@ export class FindCompaniesByDateInput {
   @Field(() => String)
   date: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
+  partnerId: string;
+
 }
