@@ -21,7 +21,7 @@ export class CompanyResolver {
   }
 
   @Query(() => [ CompanyEntity ])
-  findCompanyByPartnerId(
+  findCompaniesByPartnerId(
     @Args('findCompanyByPartnerId') findCompanyByPartnerId: FindCompanyByPartnerIdInput
   ) {
     return this.companyService.findByPartnerId(findCompanyByPartnerId);

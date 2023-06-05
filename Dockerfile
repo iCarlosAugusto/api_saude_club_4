@@ -7,6 +7,6 @@ COPY package.json ./
 COPY . .
 
 RUN npm install
-RUN npx prisma db pull
+RUN npx prisma generate
 
 ENTRYPOINT [ "npm", "run", "dev" ]
