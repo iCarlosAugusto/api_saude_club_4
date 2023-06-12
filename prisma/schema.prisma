@@ -105,6 +105,7 @@ model Class {
   description String
   lots        Int
   startAt     String
+  dateTimestamp String
   address     String
   place       String
   price       String

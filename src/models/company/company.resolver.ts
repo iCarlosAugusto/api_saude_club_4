@@ -8,6 +8,7 @@ import { ClassEntity } from './entities/class.entity';
 import { FindAllClassesInput } from './dtos/find-classes.input';
 import { BookClassInput } from './dtos/book-class.input';
 import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
+import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 
 @Resolver(() => CompanyEntity)
 export class CompanyResolver {
@@ -58,5 +59,12 @@ export class CompanyResolver {
     @Args('bookClassInput') bookClassInput: BookClassInput
   ){
     return this.companyService.bookClass(bookClassInput);
+  }
+
+  @Query(() => ClassEntity)
+  findNextClientClass(
+    @Args('findNextClientClassInput') findNextClientClassInput: FindNextClientClassInput
+  ) {
+    return this.companyService.findNextClientClass(findNextClientClassInput);
   }
 }
