@@ -69,14 +69,25 @@ export class CompanyService {
     })
   }
 
-  async bookClass({ classId }: BookClassInput) {
+  async bookClass({ classId, clientId }: BookClassInput) {
     return this.prisma.class.update({
       where: {
-        id: classId,
+        id: classId
       },
       data: {
         lots: {
           decrement: 1
+        },
+        students: {
+          create: [
+            {
+              client: {
+                connect: {
+                  id: clientId
+                }
+              }
+            }
+          ]
         }
       }
     })

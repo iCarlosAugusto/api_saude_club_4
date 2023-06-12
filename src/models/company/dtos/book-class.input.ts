@@ -8,4 +8,9 @@ export class BookClassInput {
   @IsString()
   @Field(() => String)
   classId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
+  clientId: string;
 }
