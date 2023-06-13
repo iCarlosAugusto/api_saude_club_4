@@ -8,12 +8,19 @@ import { AuthenticationModule } from './models/authentication/authentication.mod
 import { AdminModule } from './models/admin/admin.module';
 import { CompanyModule } from './models/company/company.module';
 import { ClientsModule } from './models/users/client.module';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      formatError: (error: GraphQLError) => {
+        const graphQLFormattedError: GraphQLFormattedError = {
+          message: error?.message,
+        };
+        return graphQLFormattedError;
+      },
     }),
     ClientsModule,
     PartnersModule,
