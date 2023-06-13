@@ -8,22 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Client {
-  id             String    @id @default(uuid())
-  createdAt      DateTime  @default(now())
-  email          String    @unique
-  identification String    @unique
-  password       String
-  photo          String?
-  phoneNumber    String
-  name           String
-  consults       Consult[]
-  partner        Partner  @relation(fields: [partnerId], references: [id])
-  partnerId      String
-
-  @@map("client")
-}
-
 model Partner {
   id             String    @id @default(uuid())
   createdAt      DateTime  @default(now())
@@ -53,21 +37,6 @@ model Company {
   classes      Class[]
   partnerId    String
   partner      Partner @relation(fields: [partnerId], references: [id])
-}
-
-model Class {
-  id          String  @id @default(uuid())
-  name        String
-  description String
-  lots        Int
-  startAt     String
-  address     String
-  place       String
-  price       String
-  bannerImage String
-  teacherName String
-  companyId   String
-  company     Company @relation(fields: [companyId], references: [id])
 }
 
 model Admin {
@@ -111,4 +80,48 @@ model Consult {
   partner    Partner  @relation(fields: [partnerId], references: [id])
 
   @@map("consults")
+}
+
+model Client {
+  id             String    @id @default(uuid())
+  createdAt      DateTime  @default(now())
+  email          String    @unique
+  identification String    @unique
+  password       String
+  photo          String?
+  phoneNumber    String
+  name           String
+  consults       Consult[]
+  partner        Partner  @relation(fields: [partnerId], references: [id])
+  classes        ClientsOnClasses[]
+  partnerId      String
+
+  @@map("client")
+}
+
+model Class {
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  lots        Int
+  startAt     String
+  dateTimestamp String
+  address     String
+  place       String
+  price       String
+  bannerImage String
+  teacherName String
+  companyId   String
+  students    ClientsOnClasses[]
+  company     Company @relation(fields: [companyId], references: [id])
+}
+
+model ClientsOnClasses {
+  client       Client   @relation(fields: [clientId], references: [id])
+  clientId     String // relation scalar field (used in the `@relation` attribute above)
+  class        Class    @relation(fields: [classId], references: [id])
+  classId      String // relation scalar field (used in the `@relation` attribute above)
+  assignedAt   DateTime @default(now())
+
+  @@id([classId, clientId])
 }

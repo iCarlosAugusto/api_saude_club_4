@@ -6,6 +6,7 @@ import { CreateClassInput } from './dtos/create-class.input';
 import { FindAllClassesInput } from './dtos/find-classes.input';
 import { BookClassInput } from './dtos/book-class.input';
 import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
+import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 
 @Injectable()
 export class CompanyService {
@@ -44,7 +45,7 @@ export class CompanyService {
     })
   }
 
-  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName }: CreateClassInput){
+  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp }: CreateClassInput){
     return this.prisma.class.create({
       data: {
         name,
@@ -56,7 +57,8 @@ export class CompanyService {
         companyId,
         bannerImage,
         price,
-        teacherName
+        teacherName,
+        dateTimestamp
       }
     })
   }
@@ -65,20 +67,52 @@ export class CompanyService {
     return this.prisma.class.findMany({
       where: {
         companyId
-      }
+      },
     })
   }
 
-  async bookClass({ classId }: BookClassInput) {
+  async bookClass({ classId, clientId }: BookClassInput) {
     return this.prisma.class.update({
       where: {
-        id: classId,
+        id: classId
       },
       data: {
         lots: {
           decrement: 1
+        },
+        students: {
+          create: [
+            {
+              client: {
+                connect: {
+                  id: clientId
+                }
+              }
+            }
+          ]
         }
       }
     })
+  }
+
+  async findNextClientClass({ clientId }: FindNextClientClassInput){
+    
+    var classes = await this.prisma.clientsOnClasses.findMany({
+      where: {
+        clientId
+      },
+      include: {
+        class: true
+      },
+    });
+
+    const nextClass = classes.reduce((menor, atual) => {
+      if (parseInt(atual.class.dateTimestamp) < parseInt(menor.class.dateTimestamp)) {
+        return atual;
+      } else {
+        return menor;
+      }
+    });
+    return nextClass.class;
   }
 }

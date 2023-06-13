@@ -53,4 +53,9 @@ export class CreateClassInput {
   @IsNotEmpty()
   @Field(() => String)
   companyId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  dateTimestamp: string;
 }
