@@ -126,6 +126,16 @@ export class CompanyService {
         }
       }
     })
+    await this.prisma.class.update({
+      where: {
+        id: classId
+      },
+      data: {
+        lots: {
+          increment: 1
+        }
+      }
+    });
     return 'Aula cancelada com sucesso!';
   }
 }
