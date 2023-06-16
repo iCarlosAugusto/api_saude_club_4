@@ -10,13 +10,17 @@ import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 import { CancelClientClassInput } from './dtos/cancel-client-class.input';
 import { CompanyRepository } from 'src/repositories/company.repository';
 import { PartnerRepository } from 'src/repositories/partner.repository';
+import { ClassRepository } from 'src/repositories/class.repository';
+import { ClientRepository } from 'src/repositories/client.repository';
 
 @Injectable()
 export class CompanyService {
   constructor(
     private prisma: PrismaService, 
     private companyRepository: CompanyRepository,
-    private partnerRepository: PartnerRepository
+    private partnerRepository: PartnerRepository,
+    private classRepository: ClassRepository,
+    private clientRepository: ClientRepository
   ) {}
 
   async create({ name, availableDay, bannerImage, partnerId }: CreateCompanyInput) {
@@ -72,96 +76,75 @@ export class CompanyService {
 
   ///### CLASSES ###
 
-  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp }: CreateClassInput){
-    return this.prisma.class.create({
-      data: {
-        name,
-        lots,
-        startAt,
-        address,
-        description,
-        place,
-        companyId,
-        bannerImage,
-        price,
-        teacherName,
-        dateTimestamp
-      }
-    })
+  async createClass(data : CreateClassInput){
+
+    const company = await this.companyRepository.findOneById(data.companyId);
+
+    if(!company){
+      throw new HttpException(
+        'Não foi possível criar a aula pelo id de companhia fornecido',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const classFound = await this.classRepository.createClass(data)
+
+    return classFound;
   }
 
   async findAllClasses({ companyId }: FindAllClassesInput){
-    return this.prisma.class.findMany({
-      where: {
-        companyId
-      },
-    })
+    const classes = await this.classRepository.findAllClasses({companyId});
+    return classes;
+
   }
 
   async bookClass({ classId, clientId }: BookClassInput) {
-    return this.prisma.class.update({
-      where: {
-        id: classId
-      },
-      data: {
-        lots: {
-          decrement: 1
-        },
-        students: {
-          create: [
-            {
-              client: {
-                connect: {
-                  id: clientId
-                }
-              }
-            }
-          ]
-        }
-      }
-    })
+
+    console.log("BOOK CLASS CALLED!");
+    const classFound = await this.classRepository.findClassById(classId);
+    const client = await this.clientRepository.findOne(clientId);
+    console.log(" ### CLASS ###")
+    console.log(classFound);
+    console.log("########################################")
+    console.log(" ### CLIENT ###")
+    console.log(client);
+
+    if(!classFound || !client){
+      throw new HttpException(
+        'Não foi possível criar a aula pelo id de companhia fornecido',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const classBooked = await this.classRepository.bookClass({classId, clientId});
+    return classBooked;
   }
 
   async findNextClientClass({ clientId }: FindNextClientClassInput){
-    console.log(clientId);
-    var classes = await this.prisma.clientsOnClasses.findMany({
-      where: {
-        clientId
-      },
-      include: {
-        class: true
-      },
-    });
 
-    const nextClass = classes.reduce((menor, atual) => {
-      if (parseInt(atual.class.dateTimestamp) < parseInt(menor.class.dateTimestamp)) {
-        return atual;
-      } else {
-        return menor;
-      }
-    });
-    return nextClass.class;
+    const client = await this.clientRepository.findOne(clientId);
+
+    if(!client){
+      throw new HttpException(
+        'Não foi possível criar a aula pelo id de companhia fornecido',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const classFound = await this.classRepository.findNextClientClass({clientId});
+    return classFound;
   }
 
   async cancelClass({classId, clientId }: CancelClientClassInput) {
-    await this.prisma.clientsOnClasses.delete({
-      where: {
-        classId_clientId: {
-          classId,
-          clientId,
-        }
-      }
-    })
-    await this.prisma.class.update({
-      where: {
-        id: classId
-      },
-      data: {
-        lots: {
-          increment: 1
-        }
-      }
-    });
-    return 'Aula cancelada com sucesso!';
+
+    const client = await this.clientRepository.findOne(clientId);
+    const classFound = await this.classRepository.findClassById(classId);
+    if(!client || !classFound){
+      throw new HttpException(
+        'Não foi possível criar a aula pelo id de companhia fornecido',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const classCanceled = await this.classRepository.cancelClass({classId, clientId});
+    return classCanceled;
   }
 }

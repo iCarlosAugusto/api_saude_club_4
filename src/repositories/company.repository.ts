@@ -37,7 +37,6 @@ export class CompanyRepository {
   }
 
   async findByDate({ date, partnerId }: FindCompaniesByDateInput) {
-    console.log("date: ", date);
     return this.prisma.company.findMany({
       where: {
         availableDay: {
@@ -47,6 +46,16 @@ export class CompanyRepository {
       }
     })
   }
+
+  async findOneById(id: string){
+    return await this.prisma.company.findUnique({
+      where: {
+        id
+      }
+    });
+  }
+
+  // ### CLASSES ####
 
   async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp }: CreateClassInput){
     return this.prisma.class.create({
