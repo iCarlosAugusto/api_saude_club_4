@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './services/prima.service';
 import { UpdatePasswordClientInput } from './dto/update-password-client.input';
-import { ClientRepository } from './repositories/UserRepository';
+import { ClientRepository } from '../../repositories/client.repository';
 import { CreateClientInput } from './dto/create-client.input';
 import { Client } from '@prisma/client';
 import { UpdateClientInput } from './dto/update-client.input';

@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaService } from '../services/prima.service';
-import { UpdatePasswordClientInput } from '../dto/update-password-client.input';
-import { IClientRepository } from './IUserRepository';
-import { CreateClientInput } from '../dto/create-client.input';
-import { UpdateClientInput } from '../dto/update-client.input';
-import { ClientEntity } from '../entities/client.entity';
+import { PrismaService } from '../models/users/services/prima.service';
+import { UpdatePasswordClientInput } from '../models/users/dto/update-password-client.input';
+import { IClientRepository } from '../models/users/repositories/IUserRepository';
+import { CreateClientInput } from '../models/users/dto/create-client.input';
+import { UpdateClientInput } from '../models/users/dto/update-client.input';
+import { ClientEntity } from '../models/users/entities/client.entity';
 import { Client } from '@prisma/client';
 
 @Injectable()
