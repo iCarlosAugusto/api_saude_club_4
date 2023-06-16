@@ -32,7 +32,7 @@ model Partner {
 model Company {
   id           String  @id @default(uuid())
   name         String
-  availableDay String
+  availableDay String[]
   bannerImage  String
   classes      Class[]
   partnerId    String

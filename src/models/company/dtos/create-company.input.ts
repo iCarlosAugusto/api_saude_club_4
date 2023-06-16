@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsDate, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ArrayNotEmpty, ArrayUnique, IsArray, IsDate, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class CreateCompanyInput {
@@ -9,10 +9,13 @@ export class CreateCompanyInput {
   @Field(() => String)
   name: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @Field(() => String)
-  availableDay: string;
+
+  @IsArray()
+  @ArrayNotEmpty()
+  @ArrayUnique()
+  @IsString({each: true})
+  @Field(() => [ String ])
+  availableDay: string[];
 
   @IsString()
   @IsNotEmpty()

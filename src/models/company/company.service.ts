@@ -39,7 +39,9 @@ export class CompanyService {
     console.log("date: ", date);
     return this.prisma.company.findMany({
       where: {
-        availableDay: date,
+        availableDay: {
+          has: date
+        },
         partnerId
       }
     })
