@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCompanyInput } from './dtos/create-company.input';
 import { PrismaService } from '../users/services/prima.service';
 import { FindCompaniesByDateInput } from './dtos/find-companies-by-date.input';
@@ -7,6 +7,7 @@ import { FindAllClassesInput } from './dtos/find-classes.input';
 import { BookClassInput } from './dtos/book-class.input';
 import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
 import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
+import { CancelClientClassInput } from './dtos/cancel-client-class.input';
 
 @Injectable()
 export class CompanyService {
@@ -98,7 +99,7 @@ export class CompanyService {
   }
 
   async findNextClientClass({ clientId }: FindNextClientClassInput){
-    
+    console.log(clientId);
     var classes = await this.prisma.clientsOnClasses.findMany({
       where: {
         clientId
@@ -116,5 +117,27 @@ export class CompanyService {
       }
     });
     return nextClass.class;
+  }
+
+  async cancelClass({classId, clientId }: CancelClientClassInput) {
+    await this.prisma.clientsOnClasses.delete({
+      where: {
+        classId_clientId: {
+          classId,
+          clientId,
+        }
+      }
+    })
+    await this.prisma.class.update({
+      where: {
+        id: classId
+      },
+      data: {
+        lots: {
+          increment: 1
+        }
+      }
+    });
+    return 'Aula cancelada com sucesso!';
   }
 }
