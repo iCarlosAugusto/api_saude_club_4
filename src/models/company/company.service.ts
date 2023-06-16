@@ -1,4 +1,4 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCompanyInput } from './dtos/create-company.input';
 import { PrismaService } from '../users/services/prima.service';
 import { FindCompaniesByDateInput } from './dtos/find-companies-by-date.input';
@@ -8,45 +8,69 @@ import { BookClassInput } from './dtos/book-class.input';
 import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
 import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 import { CancelClientClassInput } from './dtos/cancel-client-class.input';
+import { CompanyRepository } from 'src/repositories/company.repository';
+import { PartnerRepository } from 'src/repositories/partner.repository';
 
 @Injectable()
 export class CompanyService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService, 
+    private companyRepository: CompanyRepository,
+    private partnerRepository: PartnerRepository
+  ) {}
 
   async create({ name, availableDay, bannerImage, partnerId }: CreateCompanyInput) {
-    return await this.prisma.company.create({
-      data: {
-        name,
-        availableDay,
-        bannerImage,
-        partnerId 
-      }
+
+    const partner = await this.partnerRepository.findOneById({id: partnerId});
+
+    if(!partner){
+      throw new HttpException(
+        'Não foi possível criar a companhia pelo id do parceiro fornecido',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const company = await this.companyRepository.create({
+      name,availableDay, bannerImage, partnerId,
     })
+
+    return company;
   }
 
   async findAll() {
-    return await this.prisma.company.findMany();
+    const companies = await this.companyRepository.findAll();
+    return companies;
   }
 
   async findByPartnerId({ partnerId }: FindCompanyByPartnerIdInput) {
-    return await this.prisma.company.findMany({
-      where: {
-        partnerId
-      }
-    })
+
+    const partner = await this.partnerRepository.findOneById({id: partnerId});
+    if(!partner){
+      throw new HttpException(
+        'Não foi possível criar a companhia pelo id do parceiro fornecido',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const company = await this.companyRepository.findByPartnerId({partnerId})
+    return company;
   }
 
   async findByDate({ date, partnerId }: FindCompaniesByDateInput) {
-    console.log("date: ", date);
-    return this.prisma.company.findMany({
-      where: {
-        availableDay: {
-          has: date
-        },
-        partnerId
-      }
-    })
+
+    const partner = await this.partnerRepository.findOneById({id: partnerId});
+    if(!partner){
+      throw new HttpException(
+        'Não foi possível criar a companhia pelo id do parceiro fornecido',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const company = this.companyRepository.findByDate({
+      date, partnerId
+    });
+    return company;
   }
+
+  ///### CLASSES ###
 
   async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp }: CreateClassInput){
     return this.prisma.class.create({

@@ -77,7 +77,7 @@ export class PartnerRepository {
     return updatedPasswordPartner;
   }
 
-  async findOne({ id }: FindOneParnetInput): Promise<Partner> {
+  async findOneById({ id }: FindOneParnetInput): Promise<Partner> {
     const partner = await this.prisma.partner.findUnique({
       where: {
         id,

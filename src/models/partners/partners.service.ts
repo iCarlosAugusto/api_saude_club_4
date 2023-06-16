@@ -18,7 +18,7 @@ export class PartnersService {
   }
 
   async findOne(data: FindOneParnetInput){
-    const partner = await this.partnerRepository.findOne(data);
+    const partner = await this.partnerRepository.findOneById(data);
     return partner;
   }
 
@@ -35,7 +35,7 @@ export class PartnersService {
   }
 
   async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordPartnerInput): Promise<Partner> {
-    const partnerExists = await this.partnerRepository.findOne({id});
+    const partnerExists = await this.partnerRepository.findOneById({id});
     if(!partnerExists) throw new Error("Parceiro não encontrado");
     const updatedPartnerPassword = await this.partnerRepository.updatePassword({id, currentPassword, newPassword});
     return updatedPartnerPassword;
