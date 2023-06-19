@@ -59,7 +59,6 @@ export class CompanyService {
   }
 
   async findByDate({ date, partnerId }: FindCompaniesByDateInput) {
-
     const partner = await this.partnerRepository.findOneById({id: partnerId});
     if(!partner){
       throw new HttpException(
@@ -67,8 +66,7 @@ export class CompanyService {
         HttpStatus.BAD_REQUEST,
       );
     }
-
-    const company = this.companyRepository.findByDate({
+    const company = await this.companyRepository.findByDate({
       date, partnerId
     });
     return company;
