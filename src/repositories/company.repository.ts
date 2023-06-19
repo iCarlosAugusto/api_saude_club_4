@@ -57,7 +57,7 @@ export class CompanyRepository {
 
   // ### CLASSES ####
 
-  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp }: CreateClassInput){
+  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp, date }: CreateClassInput){
     return this.prisma.class.create({
       data: {
         name,
@@ -70,7 +70,8 @@ export class CompanyRepository {
         bannerImage,
         price,
         teacherName,
-        dateTimestamp
+        dateTimestamp,
+        date
       }
     })
   }

@@ -90,8 +90,8 @@ export class CompanyService {
     return classFound;
   }
 
-  async findAllClasses({ companyId }: FindAllClassesInput){
-    const classes = await this.classRepository.findAllClasses({companyId});
+  async findAllClasses({ companyId, date }: FindAllClassesInput){
+    const classes = await this.classRepository.findAllClasses({companyId, date});
     return classes;
 
   }

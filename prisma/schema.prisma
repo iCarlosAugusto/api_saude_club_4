@@ -112,6 +112,7 @@ model Class {
   bannerImage String
   teacherName String
   companyId   String
+  date        String
   students    ClientsOnClasses[]
   company     Company @relation(fields: [companyId], references: [id])
 }

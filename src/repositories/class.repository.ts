@@ -10,7 +10,7 @@ import { PrismaService } from 'src/models/users/services/prima.service';
 export class ClassRepository {
   constructor(private prisma: PrismaService) {}
 
-  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp }: CreateClassInput){
+  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, price, teacherName, dateTimestamp, date }: CreateClassInput){
     return this.prisma.class.create({
       data: {
         name,
@@ -23,7 +23,8 @@ export class ClassRepository {
         bannerImage,
         price,
         teacherName,
-        dateTimestamp
+        dateTimestamp,
+        date
       }
     })
   }
@@ -36,10 +37,11 @@ export class ClassRepository {
     })
   }
 
-  async findAllClasses({ companyId }: FindAllClassesInput){
+  async findAllClasses({ companyId, date }: FindAllClassesInput){
     return this.prisma.class.findMany({
       where: {
-        companyId
+        companyId,
+        date
       },
     })
   }

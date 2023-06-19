@@ -99,6 +99,7 @@ CREATE TABLE "Class" (
     "bannerImage" TEXT NOT NULL,
     "teacherName" TEXT NOT NULL,
     "companyId" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
 
     CONSTRAINT "Class_pkey" PRIMARY KEY ("id")
 );

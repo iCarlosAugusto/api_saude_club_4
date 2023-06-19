@@ -8,4 +8,9 @@ export class FindAllClassesInput {
   @IsString()
   @Field(() => String)
   companyId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
+  date: string;
 }
