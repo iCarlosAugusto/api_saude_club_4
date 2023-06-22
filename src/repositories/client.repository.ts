@@ -67,8 +67,10 @@ class ClientRepository implements IClientRepository {
         id: id,
       },
     });
-    if (client.password !== currentPassword)
-      throw new Error('Senha atual incorreta');
+    if (client.password !== currentPassword) {
+      throw new HttpException('Senha atual incorreta', 404);
+    }
+    console.log("PASSOU!");
     const updatedPasswordClient = await this.prisma.client.update({
       where: {
         id: id,

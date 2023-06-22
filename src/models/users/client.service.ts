@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from './services/prima.service';
 import { UpdatePasswordClientInput } from './dto/update-password-client.input';
 import { ClientRepository } from '../../repositories/client.repository';
@@ -40,7 +40,7 @@ export class ClientService {
 
   async updatePassword({ id, currentPassword, newPassword }: UpdatePasswordClientInput): Promise<Client> {
     const isClientExists = await this.clientRepository.findOne(id);
-    if(!isClientExists) throw new Error("Cliente não encontrado");
+    if(!isClientExists) throw new HttpException("Cliente não encontrado", 404);
     const updatedClintPassword = await this.clientRepository.updatePassword({id, currentPassword, newPassword});
     return updatedClintPassword;
   }
