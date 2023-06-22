@@ -62,7 +62,7 @@ export class CompanyResolver {
     return this.companyService.bookClass(bookClassInput);
   }
 
-  @Query(() => ClassEntity)
+  @Query(() => ClassEntity, {nullable: true})
   findNextClientClass(
     @Args('findNextClientClassInput') findNextClientClassInput: FindNextClientClassInput
   ) {

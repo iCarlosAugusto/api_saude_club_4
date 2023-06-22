@@ -71,7 +71,6 @@ export class ClassRepository {
   }
 
   async findNextClientClass({ clientId }: FindNextClientClassInput){
-    console.log(clientId);
     var classes = await this.prisma.clientsOnClasses.findMany({
       where: {
         clientId
@@ -81,6 +80,9 @@ export class ClassRepository {
       },
     });
 
+    if(classes.length === 0){
+      return null;
+    }
     const nextClass = classes.reduce((menor, atual) => {
       if (parseInt(atual.class.dateTimestamp) < parseInt(menor.class.dateTimestamp)) {
         return atual;
