@@ -5,12 +5,15 @@ import { ClientRepository } from '../../repositories/client.repository';
 import { CreateClientInput } from './dto/create-client.input';
 import { Client } from '@prisma/client';
 import { UpdateClientInput } from './dto/update-client.input';
+import { ResetClientPasswordInput } from './dto/reset-client-password.input';
+import { EmailService } from 'src/utils/email.service';
 
 @Injectable()
 export class ClientService {
   constructor(
     private prisma: PrismaService, 
-    private clientRepository: ClientRepository 
+    private clientRepository: ClientRepository,
+    private emailService: EmailService,
   ) {}
 
   async create(data: CreateClientInput): Promise<Client> {
@@ -43,5 +46,20 @@ export class ClientService {
     if(!isClientExists) throw new HttpException("Cliente não encontrado", 404);
     const updatedClintPassword = await this.clientRepository.updatePassword({id, currentPassword, newPassword});
     return updatedClintPassword;
+  }
+
+  async resetPassword({ email }: ResetClientPasswordInput) {
+    const newPassword = Math.floor(1000 + Math.random() * 9000).toString();
+
+    const client = await this.clientRepository.findOneByEmail(email);
+    if(!client) throw new HttpException("Email não encontrado em nossa base de dados", 404);
+
+    await this.clientRepository.resetPassword(client.id, newPassword);
+
+    await this.emailService.sendEmailToResetPassword({
+      email,
+      newPassword 
+    });
+    return 'Sucesso!';
   }
 }

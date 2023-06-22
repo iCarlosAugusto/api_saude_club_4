@@ -4,6 +4,7 @@ import { ClientEntity } from './entities/client.entity';
 import { CreateClientInput } from './dto/create-client.input';
 import { UpdateClientInput } from './dto/update-client.input';
 import { ClientService } from './client.service';
+import { ResetClientPasswordInput } from './dto/reset-client-password.input';
 
 @Resolver(() => ClientEntity)
 export class ClientResolver {
@@ -33,4 +34,11 @@ export class ClientResolver {
   updatePasswordClient(@Args('updatePasswordInput') updatePasswordInput: UpdatePasswordClientInput) {
     return this.clientsService.updatePassword(updatePasswordInput)
   }
+
+  @Mutation(() => String)
+  resetClientPassword(
+    @Args('resetClientPassword') resetClientPassword: ResetClientPasswordInput
+  ) {
+    return this.clientsService.resetPassword(resetClientPassword);
+  } 
 }

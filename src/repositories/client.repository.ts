@@ -37,6 +37,15 @@ class ClientRepository implements IClientRepository {
     return Client;
   }
 
+  async findOneByEmail(email: string){
+    const client = await this.prisma.client.findFirst({
+      where: {
+        email
+      }
+    })
+    return client;
+  }
+
   async findAll(): Promise<Client[]> {
     const Clients = await this.prisma.client.findMany();
     return Clients;
@@ -55,6 +64,18 @@ class ClientRepository implements IClientRepository {
       },
     });
     return updateClient;
+  }
+
+  async resetPassword(id: string, newPassword: string){
+    const client = await this.prisma.client.update({
+      where: {
+        id
+      },
+      data: {
+        password: newPassword
+      }
+    });
+    return client;
   }
 
   async updatePassword({
