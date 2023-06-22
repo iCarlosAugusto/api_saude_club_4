@@ -9,6 +9,7 @@ import { AdminModule } from './models/admin/admin.module';
 import { CompanyModule } from './models/company/company.module';
 import { ClientsModule } from './models/users/client.module';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { NewsModule } from './models/news/news.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { GraphQLError, GraphQLFormattedError } from 'graphql';
     ConsultsModule,
     ServicesModule,
     AuthenticationModule,
-    CompanyModule
+    CompanyModule,
+    NewsModule
   ],
   controllers: [],
   providers: [],

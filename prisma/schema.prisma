@@ -126,3 +126,10 @@ model ClientsOnClasses {
 
   @@id([classId, clientId])
 }
+
+model News {
+  id            String             @id @default(uuid())
+  title         String
+  description   String
+  imageUrl         String
+}
