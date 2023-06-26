@@ -5,11 +5,11 @@ import { CreateCompanyInput } from './dtos/create-company.input';
 import { FindCompaniesByDateInput } from './dtos/find-companies-by-date.input';
 import { CreateClassInput } from './dtos/create-class.input';
 import { ClassEntity } from './entities/class.entity';
-import { FindAllClassesInput } from './dtos/find-classes.input';
 import { BookClassInput } from './dtos/book-class.input';
 import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
 import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 import { CancelClientClassInput } from './dtos/cancel-client-class.input';
+import { FindAllClassesByDateInput } from './dtos/find-classes_by_date.input';
 
 @Resolver(() => CompanyEntity)
 export class CompanyResolver {
@@ -34,6 +34,7 @@ export class CompanyResolver {
     return this.companyService.findAll();
   }
 
+
   @Query(() => [CompanyEntity])
   findCompaniesByDate(
     @Args('findCompaniesByDate') findCompaniesByDate: FindCompaniesByDateInput,
@@ -49,10 +50,10 @@ export class CompanyResolver {
   }
 
   @Query(() => [ ClassEntity ])
-  findAllClasses(
-    @Args('findAllClasses') findAllClasses: FindAllClassesInput
+  findAllClassesByDate(
+    @Args('findAllClassesByDateInput') findAllClassesByDate: FindAllClassesByDateInput
   ){
-    return this.companyService.findAllClasses(findAllClasses)
+    return this.companyService.findAllClassesByDate(findAllClassesByDate)
   }
 
   @Mutation(() => ClassEntity)

@@ -3,7 +3,7 @@ import { BookClassInput } from 'src/models/company/dtos/book-class.input';
 import { CancelClientClassInput } from 'src/models/company/dtos/cancel-client-class.input';
 import { CreateClassInput } from 'src/models/company/dtos/create-class.input';
 import { CreateCompanyInput } from 'src/models/company/dtos/create-company.input';
-import { FindAllClassesInput } from 'src/models/company/dtos/find-classes.input';
+import { FindAllClassesByDateInput } from 'src/models/company/dtos/find-classes_by_date.input';
 import { FindCompaniesByDateInput } from 'src/models/company/dtos/find-companies-by-date.input';
 import { FindCompanyByPartnerIdInput } from 'src/models/company/dtos/find-company-by-id.input';
 import { FindNextClientClassInput } from 'src/models/company/dtos/find-next-client-class.input';
@@ -76,7 +76,7 @@ export class CompanyRepository {
     })
   }
 
-  async findAllClasses({ companyId }: FindAllClassesInput){
+  async findAllClasses({ companyId }: FindAllClassesByDateInput){
     return this.prisma.class.findMany({
       where: {
         companyId

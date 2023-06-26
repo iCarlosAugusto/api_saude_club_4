@@ -3,7 +3,6 @@ import { CreateCompanyInput } from './dtos/create-company.input';
 import { PrismaService } from '../users/services/prima.service';
 import { FindCompaniesByDateInput } from './dtos/find-companies-by-date.input';
 import { CreateClassInput } from './dtos/create-class.input';
-import { FindAllClassesInput } from './dtos/find-classes.input';
 import { BookClassInput } from './dtos/book-class.input';
 import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
 import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
@@ -12,6 +11,7 @@ import { CompanyRepository } from 'src/repositories/company.repository';
 import { PartnerRepository } from 'src/repositories/partner.repository';
 import { ClassRepository } from 'src/repositories/class.repository';
 import { ClientRepository } from 'src/repositories/client.repository';
+import { FindAllClassesByDateInput } from './dtos/find-classes_by_date.input';
 
 @Injectable()
 export class CompanyService {
@@ -90,8 +90,8 @@ export class CompanyService {
     return classFound;
   }
 
-  async findAllClasses({ companyId, date }: FindAllClassesInput){
-    const classes = await this.classRepository.findAllClasses({companyId, date});
+  async findAllClassesByDate({ companyId, date }: FindAllClassesByDateInput){
+    const classes = await this.classRepository.findAllClassesByDate({companyId, date});
     return classes;
 
   }
