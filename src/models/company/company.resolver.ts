@@ -10,6 +10,7 @@ import { FindCompanyByPartnerIdInput } from './dtos/find-company-by-id.input';
 import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 import { CancelClientClassInput } from './dtos/cancel-client-class.input';
 import { FindAllClassesByDateInput } from './dtos/find-classes_by_date.input';
+import { FindAllClassesInput } from './dtos/find-all-classes.input';
 
 @Resolver(() => CompanyEntity)
 export class CompanyResolver {
@@ -49,6 +50,13 @@ export class CompanyResolver {
     return this.companyService.createClass(createClass);
   }
 
+  @Query(() => [ ClassEntity ], { nullable: true })
+  findAllClasses(
+    @Args('findAllClassesInput') findAllClassesInput: FindAllClassesInput
+  ){
+    return this.companyService.findAllClassses(findAllClassesInput);
+  }
+
   @Query(() => [ ClassEntity ])
   findAllClassesByDate(
     @Args('findAllClassesByDateInput') findAllClassesByDate: FindAllClassesByDateInput
@@ -63,7 +71,7 @@ export class CompanyResolver {
     return this.companyService.bookClass(bookClassInput);
   }
 
-  @Query(() => ClassEntity, {nullable: true})
+  @Query(() => ClassEntity)
   findNextClientClass(
     @Args('findNextClientClassInput') findNextClientClassInput: FindNextClientClassInput
   ) {

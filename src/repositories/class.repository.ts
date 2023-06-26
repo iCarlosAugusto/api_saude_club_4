@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BookClassInput } from 'src/models/company/dtos/book-class.input';
 import { CancelClientClassInput } from 'src/models/company/dtos/cancel-client-class.input';
 import { CreateClassInput } from 'src/models/company/dtos/create-class.input';
+import { FindAllClassesInput } from 'src/models/company/dtos/find-all-classes.input';
 import { FindAllClassesByDateInput } from 'src/models/company/dtos/find-classes_by_date.input';
 import { FindNextClientClassInput } from 'src/models/company/dtos/find-next-client-class.input';
 import { PrismaService } from 'src/models/users/services/prima.service';
@@ -33,6 +34,14 @@ export class ClassRepository {
     return await this.prisma.class.findUnique({
       where: {
         id
+      }
+    })
+  }
+
+  async findAllClasses({ companyId } : FindAllClassesInput) {
+    return await this.prisma.class.findMany({
+      where: {
+        companyId
       }
     })
   }
@@ -71,6 +80,7 @@ export class ClassRepository {
   }
 
   async findNextClientClass({ clientId }: FindNextClientClassInput){
+    console.log(clientId);
     var classes = await this.prisma.clientsOnClasses.findMany({
       where: {
         clientId
@@ -80,9 +90,6 @@ export class ClassRepository {
       },
     });
 
-    if(classes.length === 0){
-      return null;
-    }
     const nextClass = classes.reduce((menor, atual) => {
       if (parseInt(atual.class.dateTimestamp) < parseInt(menor.class.dateTimestamp)) {
         return atual;

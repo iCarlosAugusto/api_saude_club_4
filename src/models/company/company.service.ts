@@ -12,6 +12,7 @@ import { PartnerRepository } from 'src/repositories/partner.repository';
 import { ClassRepository } from 'src/repositories/class.repository';
 import { ClientRepository } from 'src/repositories/client.repository';
 import { FindAllClassesByDateInput } from './dtos/find-classes_by_date.input';
+import { FindAllClassesInput } from './dtos/find-all-classes.input';
 
 @Injectable()
 export class CompanyService {
@@ -88,6 +89,13 @@ export class CompanyService {
     const classFound = await this.classRepository.createClass(data)
 
     return classFound;
+  }
+
+  async findAllClassses(data: FindAllClassesInput) {
+    const company = await this.companyRepository.findOneById(data.companyId);
+    if(!company) throw new HttpException('Companhia não existente', 404);
+    const classes = await this.classRepository.findAllClasses(data);
+    return classes;
   }
 
   async findAllClassesByDate({ companyId, date }: FindAllClassesByDateInput){
