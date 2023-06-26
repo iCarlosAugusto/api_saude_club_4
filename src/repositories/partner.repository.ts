@@ -32,7 +32,10 @@ export class PartnerRepository {
         specialties: data.specialties,
       },
     });
-    await this.emailService.sendEmail({partnerEmail: data.email, partnerPassword: firstPartnerPassword});
+    await this.emailService.sendEmailToResetPassword({
+      email: data.email,
+      newPassword: firstPartnerPassword
+    });
     return partner;
   }
 

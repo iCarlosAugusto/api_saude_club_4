@@ -21,22 +21,22 @@ model Partner {
   phoneNumber    String
   servicePrice   String
   jobDescription String
-  consults       Consult[]
-  services       Service[]
   companies      Company[]
   clients        Client[]
+  consults       Consult[]
+  services       Service[]
 
   @@map("partners")
 }
 
 model Company {
-  id           String  @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
   availableDay String[]
   bannerImage  String
-  classes      Class[]
   partnerId    String
-  partner      Partner @relation(fields: [partnerId], references: [id])
+  classes      Class[]
+  partner      Partner  @relation(fields: [partnerId], references: [id])
 }
 
 model Admin {
@@ -75,54 +75,61 @@ model Consult {
   clientId   String
   serviceId  String
   isFinished Boolean  @default(false)
-  service    Service  @relation(fields: [serviceId], references: [id])
   client     Client   @relation(fields: [clientId], references: [id])
   partner    Partner  @relation(fields: [partnerId], references: [id])
+  service    Service  @relation(fields: [serviceId], references: [id])
 
   @@map("consults")
 }
 
 model Client {
-  id             String    @id @default(uuid())
-  createdAt      DateTime  @default(now())
-  email          String    @unique
-  identification String    @unique
+  id             String             @id @default(uuid())
+  createdAt      DateTime           @default(now())
+  email          String             @unique
+  identification String             @unique
   password       String
   photo          String?
   phoneNumber    String
   name           String
-  consults       Consult[]
-  partner        Partner  @relation(fields: [partnerId], references: [id])
-  classes        ClientsOnClasses[]
   partnerId      String
+  classes        ClientsOnClasses[]
+  partner        Partner            @relation(fields: [partnerId], references: [id])
+  consults       Consult[]
 
   @@map("client")
 }
 
 model Class {
-  id          String  @id @default(uuid())
-  name        String
-  description String
-  lots        Int
-  startAt     String
+  id            String             @id @default(uuid())
+  name          String
+  description   String
+  lots          Int
+  startAt       String
   dateTimestamp String
-  address     String
-  place       String
-  price       String
-  bannerImage String
-  teacherName String
-  companyId   String
-  date        String
-  students    ClientsOnClasses[]
-  company     Company @relation(fields: [companyId], references: [id])
+  address       String
+  place         String
+  price         String
+  bannerImage   String
+  teacherName   String
+  companyId     String
+  date          String
+  company       Company            @relation(fields: [companyId], references: [id])
+  students      ClientsOnClasses[]
 }
 
 model ClientsOnClasses {
-  client       Client   @relation(fields: [clientId], references: [id])
-  clientId     String // relation scalar field (used in the `@relation` attribute above)
-  class        Class    @relation(fields: [classId], references: [id])
-  classId      String // relation scalar field (used in the `@relation` attribute above)
-  assignedAt   DateTime @default(now())
+  clientId   String
+  classId    String
+  assignedAt DateTime @default(now())
+  class      Class    @relation(fields: [classId], references: [id])
+  client     Client   @relation(fields: [clientId], references: [id])
 
   @@id([classId, clientId])
+}
+
+model News {
+  id            String             @id @default(uuid())
+  title         String
+  description   String
+  imageUrl         String
 }

@@ -36,6 +36,7 @@ export class ConsultRepository {
     startDateTimestamp,
     limitDateTimestamp
   }: FindAllClientConsultsInput) {
+    console.log(isFinished);
     const consults = await this.prisma.consult.findMany({
       where: {
         clientId: clientId,
@@ -53,7 +54,6 @@ export class ConsultRepository {
         service: true,
       }
     });
-
     return consults;
   }
 

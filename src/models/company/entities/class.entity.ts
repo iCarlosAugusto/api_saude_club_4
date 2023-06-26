@@ -33,4 +33,6 @@ export class ClassEntity {
   @Field(() => String)
   teacherName: string;
   
+  @Field(() => String)
+  date: string;
 }

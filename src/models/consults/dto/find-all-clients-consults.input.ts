@@ -18,7 +18,7 @@ export class FindAllClientConsultsInput {
 
   @IsOptional()
   @IsBoolean()
-  @Field(() => Boolean, { defaultValue: false })
+  @Field(() => Boolean, {nullable: true})
   isFinished?: boolean;
 
   @IsOptional()
