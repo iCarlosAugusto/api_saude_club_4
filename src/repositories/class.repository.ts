@@ -88,6 +88,9 @@ export class ClassRepository {
         class: true
       },
     });
+    if(classes.length == 0){
+      return null;
+    }
 
     const nextClass = classes.reduce((menor, atual) => {
       if (parseInt(atual.class.dateTimestamp) < parseInt(menor.class.dateTimestamp)) {
