@@ -19,4 +19,8 @@ export class CreateConsultInput {
   @Field(() => String)
   serviceId: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
+  date: string;
 }

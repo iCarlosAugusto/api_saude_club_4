@@ -75,6 +75,7 @@ model Consult {
   clientId   String
   serviceId  String
   isFinished Boolean  @default(false)
+  date       String
   client     Client   @relation(fields: [clientId], references: [id])
   partner    Partner  @relation(fields: [partnerId], references: [id])
   service    Service  @relation(fields: [serviceId], references: [id])

@@ -66,6 +66,7 @@ CREATE TABLE "consults" (
     "clientId" TEXT NOT NULL,
     "serviceId" TEXT NOT NULL,
     "isFinished" BOOLEAN NOT NULL DEFAULT false,
+    "date" TEXT NOT NULL,
 
     CONSTRAINT "consults_pkey" PRIMARY KEY ("id")
 );
@@ -95,7 +96,6 @@ CREATE TABLE "Class" (
     "dateTimestamp" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "place" TEXT NOT NULL,
-    "price" TEXT NOT NULL,
     "bannerImage" TEXT NOT NULL,
     "teacherName" TEXT NOT NULL,
     "companyId" TEXT NOT NULL,
@@ -111,6 +111,16 @@ CREATE TABLE "ClientsOnClasses" (
     "assignedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ClientsOnClasses_pkey" PRIMARY KEY ("classId","clientId")
+);
+
+-- CreateTable
+CREATE TABLE "News" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
+
+    CONSTRAINT "News_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

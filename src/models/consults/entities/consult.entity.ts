@@ -22,4 +22,7 @@ export class ConsultEntity {
 
   @Field(() => Boolean)
   isFinished: boolean;
+
+  @Field(() => String)
+  date: string;
 }

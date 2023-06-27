@@ -9,13 +9,9 @@ import { FindAllPartnerConsultsInput } from '../dto/find-all-partner-consults.in
 export class ConsultRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create({ clientId, partnerId, serviceId }: CreateConsultInput) {
+  async create(data: CreateConsultInput) {
     const consult = await this.prisma.consult.create({
-      data: {
-        clientId,
-        partnerId,
-        serviceId
-      },
+      data
     });
     return consult;
   }
