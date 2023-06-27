@@ -37,11 +37,6 @@ export class CreateClassInput {
   @IsString()
   @IsNotEmpty()
   @Field(() => String)
-  price: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @Field(() => String)
   bannerImage: string;
 
   @IsString()
