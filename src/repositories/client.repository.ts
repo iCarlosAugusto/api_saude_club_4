@@ -6,12 +6,18 @@ import { CreateClientInput } from '../models/users/dto/create-client.input';
 import { UpdateClientInput } from '../models/users/dto/update-client.input';
 import { ClientEntity } from '../models/users/entities/client.entity';
 import { Client } from '@prisma/client';
+import { EmailService } from 'src/utils/email.service';
 
 @Injectable()
 class ClientRepository implements IClientRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private emailService: EmailService,
+  ) {}
 
   async create(data: CreateClientInput) {
+    const firstPartnerPassword = Math.floor(1000 + Math.random() * 9000).toString();
+
     const isClientRepeted = await this.prisma.client.findUnique({
       where: {
         email: data.email,
@@ -24,7 +30,16 @@ class ClientRepository implements IClientRepository {
       );
     }
 
-    const client = await this.prisma.client.create({ data });
+    const client = await this.prisma.client.create({ 
+      data: {
+        password: firstPartnerPassword,
+        ...data
+      }
+    });
+    await this.emailService.sendEmailToResetPassword({
+      email: data.email,
+      newPassword: firstPartnerPassword
+    });
     return client;
   }
 

@@ -15,10 +15,6 @@ export class CreateClientInput {
   @Field(() => String)
   identification: string;
 
-  @IsNotEmpty({ message: 'A senha é obrigatório' })
-  @Field(() => String)
-  password: string;
-
   @IsNotEmpty({ message: 'O nome é obrigatória' })
   @Field(() => String)
   name: string;
