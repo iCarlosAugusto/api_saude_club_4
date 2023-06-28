@@ -17,7 +17,12 @@ export class ConsultRepository {
     await this.emailService.sendEmail(data.clientEmail, data.clientEmailMessage);
     await this.emailService.sendEmail(data.partnerEmail, data.partnerEmailMessage)
     const consult = await this.prisma.consult.create({
-      data
+      data: {
+        clientId: data.clientId,
+        partnerId: data.partnerId,
+        serviceId: data.serviceId,
+        date: data.date,
+      }
     });
     return consult;
   }
