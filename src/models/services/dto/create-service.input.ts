@@ -36,6 +36,11 @@ export class CreateServiceInput {
   partnerPhoto: string;
 
   @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  partnerEmail: string;
+
+  @IsString()
   @IsNotEmpty({ message: "O endereço do parceiro responsável é obrigatório"})
   @Field(() => String)
   address: string;

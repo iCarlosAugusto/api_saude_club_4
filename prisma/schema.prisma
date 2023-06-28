@@ -58,6 +58,7 @@ model Service {
   price        String
   partnerName  String
   partnerPhoto String
+  partnerEmail String
   specialitie  String
   address      String
   partnerId    String

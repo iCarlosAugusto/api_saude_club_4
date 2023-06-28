@@ -10,19 +10,7 @@ class ServiceRepository {
 
   async create(data: CreateServiceInput) {
     data.bannerImage
-    const service = await this.prisma.service.create({
-      data: {
-        name: data.name,
-        description: data.description,
-        bannerImage: data.bannerImage,
-        price: data.price,
-        partnerId: data.partnerId,
-        partnerName: data.partnerName,
-        specialitie: data.specialitie,
-        partnerPhoto: data.partnerPhoto,
-        address: data.address,
-      }
-    });
+    const service = await this.prisma.service.create({ data });
     return service;
   }
 

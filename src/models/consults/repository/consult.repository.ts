@@ -4,12 +4,18 @@ import { PrismaService } from 'src/models/users/services/prima.service';
 import { FindAllClientConsultsInput } from '../dto/find-all-clients-consults.input';
 import { FindOneConsultInput } from '../dto/find-one-consult.input';
 import { FindAllPartnerConsultsInput } from '../dto/find-all-partner-consults.input';
+import { EmailService } from 'src/utils/email.service';
 
 @Injectable()
 export class ConsultRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private emailService: EmailService
+  ) {}
 
   async create(data: CreateConsultInput) {
+    await this.emailService.sendEmail(data.clientEmail, data.clientEmailMessage);
+    await this.emailService.sendEmail(data.partnerEmail, data.partnerEmailMessage)
     const consult = await this.prisma.consult.create({
       data
     });
