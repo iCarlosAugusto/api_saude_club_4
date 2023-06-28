@@ -30,6 +30,9 @@ export class ServiceEntity {
   partnerId: string;
 
   @Field(() => String)
+  partnerEmail: string;
+
+  @Field(() => String)
   partnerName: string;
 
   @Field(() => String)
