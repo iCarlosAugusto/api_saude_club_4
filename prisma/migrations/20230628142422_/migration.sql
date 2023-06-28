@@ -50,6 +50,7 @@ CREATE TABLE "services" (
     "price" TEXT NOT NULL,
     "partnerName" TEXT NOT NULL,
     "partnerPhoto" TEXT NOT NULL,
+    "partnerEmail" TEXT NOT NULL,
     "specialitie" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "partnerId" TEXT NOT NULL,
