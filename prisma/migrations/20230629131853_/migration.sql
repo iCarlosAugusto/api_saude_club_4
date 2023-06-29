@@ -55,6 +55,8 @@ CREATE TABLE "services" (
     "address" TEXT NOT NULL,
     "partnerId" TEXT NOT NULL,
     "bannerImage" TEXT NOT NULL,
+    "startAt" TEXT NOT NULL,
+    "endAt" TEXT NOT NULL,
 
     CONSTRAINT "services_pkey" PRIMARY KEY ("id")
 );
