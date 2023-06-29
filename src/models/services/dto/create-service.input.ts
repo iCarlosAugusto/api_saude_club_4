@@ -50,4 +50,13 @@ export class CreateServiceInput {
   @Field(() => String)
   specialitie: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  startAt: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  endAt: string;
 }

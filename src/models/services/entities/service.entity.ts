@@ -46,4 +46,10 @@ export class ServiceEntity {
    
   @Field(() => String)
   specialitie: string;
+
+  @Field(() => String)
+  startAt: string;
+
+  @Field(() => String)
+  endAt: string;
 }
