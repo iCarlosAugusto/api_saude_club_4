@@ -63,6 +63,8 @@ model Service {
   address      String
   partnerId    String
   bannerImage  String
+  startAt      String
+  endAt        String
   consult      Consult[]
   partner      Partner   @relation(fields: [partnerId], references: [id])
 
