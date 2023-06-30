@@ -81,6 +81,7 @@ CREATE TABLE "client" (
     "email" TEXT NOT NULL,
     "identification" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "isPremium" BOOLEAN NOT NULL DEFAULT false,
     "photo" TEXT,
     "phoneNumber" TEXT NOT NULL,
     "name" TEXT NOT NULL,
