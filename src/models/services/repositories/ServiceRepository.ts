@@ -14,7 +14,7 @@ class ServiceRepository {
     return service;
   }
 
-  async findAll({ skip, partnerId }: FindAllServicesInput) {
+  async findAll({ skip }: FindAllServicesInput) {
     const services = await this.prisma.service.findMany({
       skip: skip == null ? 0 : skip,
       take: 10,
