@@ -92,6 +92,7 @@ model Client {
   email          String             @unique
   identification String             @unique
   password       String
+  isPremium      Boolean           @default(false)
   photo          String?
   phoneNumber    String
   name           String

@@ -14,10 +14,13 @@ class ServiceRepository {
     return service;
   }
 
-  async findAll({ skip }: FindAllServicesInput) {
+  async findAll({ skip, partnerId }: FindAllServicesInput) {
     const services = await this.prisma.service.findMany({
       skip: skip == null ? 0 : skip,
       take: 10,
+      where: {
+        partnerId
+      },
       include: {
         consult: true,
         partner: true,
