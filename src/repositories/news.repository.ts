@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNewsInput } from 'src/models/news/dtos/create-news.input';
-import { PrismaService } from 'src/models/users/services/prima.service';
+import { CreateNewsInput } from 'src/api/news/dtos/create-news.input';
+import { PrismaService } from 'src/api/users/services/prima.service';
 
 @Injectable()
 export class NewsRepository {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/models/users/services/prima.service';
+import { PrismaService } from 'src/api/users/services/prima.service';
 import { CreateServiceInput } from '../dto/create-service.input';
 import { FindAllServicesInput } from '../dto/find-all-services.input';
 

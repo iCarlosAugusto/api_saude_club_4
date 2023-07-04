@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConsultInput } from '../dto/create-consult.input';
-import { PrismaService } from 'src/models/users/services/prima.service';
 import { FindAllClientConsultsInput } from '../dto/find-all-clients-consults.input';
 import { FindOneConsultInput } from '../dto/find-one-consult.input';
 import { FindAllPartnerConsultsInput } from '../dto/find-all-partner-consults.input';
 import { EmailService } from 'src/utils/email.service';
+import { PrismaService } from 'src/api/users/services/prima.service';
 
 @Injectable()
 export class ConsultRepository {

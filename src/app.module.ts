@@ -1,15 +1,15 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { PartnersModule } from './models/partners/partners.module';
-import { ConsultsModule } from './models/consults/consults.module';
-import { ServicesModule } from './models/services/services.module';
-import { AuthenticationModule } from './models/authentication/authentication.module';
-import { AdminModule } from './models/admin/admin.module';
-import { CompanyModule } from './models/company/company.module';
-import { ClientsModule } from './models/users/client.module';
+import { PartnersModule } from './api/partners/partners.module';
+import { ConsultsModule } from './api/consults/consults.module';
+import { ServicesModule } from './api/services/services.module';
+import { AuthenticationModule } from './api/authentication/authentication.module';
+import { AdminModule } from './api/admin/admin.module';
+import { CompanyModule } from './api/company/company.module';
+import { ClientsModule } from './api/users/client.module';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
-import { NewsModule } from './models/news/news.module';
+import { NewsModule } from './api/news/news.module';
 
 @Module({
   imports: [

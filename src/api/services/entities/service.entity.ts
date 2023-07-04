@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { ConsultEntity } from 'src/models/consults/entities/consult.entity';
-import { PartnerEntity } from 'src/models/partners/entities/partner.entity';
+import { ConsultEntity } from 'src/api/consults/entities/consult.entity';
+import { PartnerEntity } from 'src/api/partners/entities/partner.entity';
 
 @ObjectType()
 export class ServiceEntity {

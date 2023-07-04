@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/models/users/services/prima.service';
 import { AuthenticationInput } from '../dto/authentication.input';
+import { PrismaService } from 'src/api/users/services/prima.service';
 
 @Injectable()
 export class AuthenticationRepository {

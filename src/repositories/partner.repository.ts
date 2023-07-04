@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/models/users/services/prima.service';
-import { CreatePartnerInput } from '../models/partners/dto/create-partner.input';
+import { PrismaService } from 'src/api/users/services/prima.service';
+import { CreatePartnerInput } from '../api/partners/dto/create-partner.input';
 import { Partner } from '@prisma/client';
-import { UpdatePartnerInput } from '../models/partners/dto/update-partner.input';
-import { FindOneParnetInput } from '../models/partners/dto/find-one-partner.input';
-import { FindAllParnerstInput } from '../models/partners/dto/find-all-partners.input';
-import { UpdatePasswordPartnerInput } from '../models/partners/dto/update-password-partner.input';
+import { UpdatePartnerInput } from '../api/partners/dto/update-partner.input';
+import { FindOneParnetInput } from '../api/partners/dto/find-one-partner.input';
+import { FindAllParnerstInput } from '../api/partners/dto/find-all-partners.input';
+import { UpdatePasswordPartnerInput } from '../api/partners/dto/update-password-partner.input';
 import { EmailService } from 'src/utils/email.service';
 
 @Injectable()

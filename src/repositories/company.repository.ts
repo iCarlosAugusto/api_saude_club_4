@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { BookClassInput } from 'src/models/company/dtos/book-class.input';
-import { CancelClientClassInput } from 'src/models/company/dtos/cancel-client-class.input';
-import { CreateClassInput } from 'src/models/company/dtos/create-class.input';
-import { CreateCompanyInput } from 'src/models/company/dtos/create-company.input';
-import { FindAllClassesByDateInput } from 'src/models/company/dtos/find-classes_by_date.input';
-import { FindCompaniesByDateInput } from 'src/models/company/dtos/find-companies-by-date.input';
-import { FindCompanyByPartnerIdInput } from 'src/models/company/dtos/find-company-by-id.input';
-import { FindNextClientClassInput } from 'src/models/company/dtos/find-next-client-class.input';
-import { PrismaService } from 'src/models/users/services/prima.service';
+import { BookClassInput } from 'src/api/company/dtos/book-class.input';
+import { CancelClientClassInput } from 'src/api/company/dtos/cancel-client-class.input';
+import { CreateClassInput } from 'src/api/company/dtos/create-class.input';
+import { CreateCompanyInput } from 'src/api/company/dtos/create-company.input';
+import { FindAllClassesByDateInput } from 'src/api/company/dtos/find-classes_by_date.input';
+import { FindCompaniesByDateInput } from 'src/api/company/dtos/find-companies-by-date.input';
+import { FindCompanyByPartnerIdInput } from 'src/api/company/dtos/find-company-by-id.input';
+import { FindNextClientClassInput } from 'src/api/company/dtos/find-next-client-class.input';
+import { PrismaService } from 'src/api/users/services/prima.service';
 
 @Injectable()
 export class CompanyRepository {

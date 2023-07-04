@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/models/users/services/prima.service";
 import { Admin, Partner } from "@prisma/client";
 import { CreateAdminInput } from "../dto/create-admin.input";
+import { PrismaService } from "src/api/users/services/prima.service";
 
 @Injectable()
 export class AdminRepository {
