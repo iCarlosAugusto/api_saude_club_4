@@ -1,20 +1,24 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { ArrayNotEmpty, ArrayUnique, IsArray, IsDate, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  ArrayUnique,
+  IsArray,
+  IsNotEmpty,
+  IsString,
+} from 'class-validator';
 
 @InputType()
 export class CreateCompanyInput {
-
   @IsNotEmpty()
   @IsString()
   @Field(() => String)
   name: string;
 
-
   @IsArray()
   @ArrayNotEmpty()
   @ArrayUnique()
-  @IsString({each: true})
-  @Field(() => [ String ])
+  @IsString({ each: true })
+  @Field(() => [String])
   availableDay: string[];
 
   @IsString()

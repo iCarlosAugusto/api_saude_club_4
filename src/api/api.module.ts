@@ -7,6 +7,7 @@ import { NewsModule } from './news/news.module';
 import { PartnersModule } from './partners/partners.module';
 import { ServicesModule } from './services/services.module';
 import { ClientsModule } from './users/client.module';
+import { ClassModule } from './classes/class.module';
 
 
 @Module({
@@ -19,6 +20,7 @@ import { ClientsModule } from './users/client.module';
     PartnersModule,
     ServicesModule,
     ClientsModule,
+    ClassModule,
   ],
 })
 export class ApiModule {}
