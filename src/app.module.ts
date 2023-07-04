@@ -10,6 +10,7 @@ import { CompanyModule } from './api/company/company.module';
 import { ClientsModule } from './api/users/client.module';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { NewsModule } from './api/news/news.module';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
@@ -23,14 +24,7 @@ import { NewsModule } from './api/news/news.module';
         return graphQLFormattedError;
       },
     }),
-    ClientsModule,
-    PartnersModule,
-    AdminModule,
-    ConsultsModule,
-    ServicesModule,
-    AuthenticationModule,
-    CompanyModule,
-    NewsModule
+    ApiModule
   ],
   controllers: [],
   providers: [],
