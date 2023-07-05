@@ -7,6 +7,7 @@ import { BookClassInput } from './dtos/book-class.input';
 import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 import { CancelClientClassInput } from './dtos/cancel-client-class.input';
 import { ClassEntity } from './entities/class.entity';
+import { UpdateClassInput } from './dtos/update-class.input';
 
 
 @Resolver(() => ClassEntity)
@@ -18,6 +19,13 @@ export class ClassResolver {
     @Args('createClass') createClass: CreateClassInput,
   ){
     return this.classService.createClass(createClass);
+  }
+
+  @Mutation(() => ClassEntity)
+  updateClass(
+    @Args('updateClassInput') updateClassInput: UpdateClassInput,
+  ){
+    return this.classService.update(updateClassInput);
   }
 
   @Query(() => [ ClassEntity ], { nullable: true })

@@ -5,6 +5,7 @@ import { CreateClassInput } from 'src/api/classes/dtos/create-class.input';
 import { FindAllClassesInput } from 'src/api/classes/dtos/find-all-classes.input';
 import { FindAllClassesByDateInput } from 'src/api/classes/dtos/find-classes_by_date.input';
 import { FindNextClientClassInput } from 'src/api/classes/dtos/find-next-client-class.input';
+import { UpdateClassInput } from 'src/api/classes/dtos/update-class.input';
 import { PrismaService } from 'src/api/users/services/prima.service';
 
 @Injectable()
@@ -26,6 +27,16 @@ export class ClassRepository {
         dateTimestamp,
         date
       }
+    })
+  }
+
+  async update(data: UpdateClassInput) {
+    const { classId, ...rest } = data;
+    return await this.prisma.class.update({
+      where: {
+        id: classId
+      },
+      data: { ...rest }
     })
   }
 
