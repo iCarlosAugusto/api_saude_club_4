@@ -9,6 +9,7 @@ import { FindAllClassesByDateInput } from './dtos/find-classes_by_date.input';
 import { FindAllClassesInput } from './dtos/find-all-classes.input';
 import { CompanyRepository } from 'src/repositories/company.repository';
 import { UpdateClassInput } from './dtos/update-class.input';
+import { DeleteClassInput } from './dtos/delete-class.input';
 
 @Injectable()
 export class ClassService {
@@ -19,6 +20,7 @@ export class ClassService {
   ) {}
 
   async createClass(data: CreateClassInput) {
+    console.log("aqi2")
     const company = await this.companyRepository.findOneById(data.companyId);
 
     if (!company) {
@@ -37,6 +39,13 @@ export class ClassService {
     const classExists = this.classRepository.findClassById(data.classId);
     if (!classExists) throw new HttpException('Companhia não existente', 404);
     const classUpdated = await this.classRepository.update(data);
+    return classUpdated;
+  }
+
+  async delete(data: DeleteClassInput) {
+    const classExists = this.classRepository.findClassById(data.classId);
+    if (!classExists) throw new HttpException('Companhia não existente', 404);
+    const classUpdated = await this.classRepository.delete(data);
     return classUpdated;
   }
 
@@ -78,7 +87,7 @@ export class ClassService {
 
     if (!client) {
       throw new HttpException(
-        'Não foi possível criar a aula pelo id de companhia fornecido',
+        'Não foi possível encontrar a aula pelo id do cliente fornecido',
         HttpStatus.BAD_REQUEST,
       );
     }

@@ -8,6 +8,7 @@ import { FindNextClientClassInput } from './dtos/find-next-client-class.input';
 import { CancelClientClassInput } from './dtos/cancel-client-class.input';
 import { ClassEntity } from './entities/class.entity';
 import { UpdateClassInput } from './dtos/update-class.input';
+import { DeleteClassInput } from './dtos/delete-class.input';
 
 
 @Resolver(() => ClassEntity)
@@ -26,6 +27,13 @@ export class ClassResolver {
     @Args('updateClassInput') updateClassInput: UpdateClassInput,
   ){
     return this.classService.update(updateClassInput);
+  }
+
+  @Mutation(() => ClassEntity)
+  deleteClass(
+    @Args('deleteClassInput') deleteClassInput: DeleteClassInput,
+  ){
+    return this.classService.delete(deleteClassInput);
   }
 
   @Query(() => [ ClassEntity ], { nullable: true })

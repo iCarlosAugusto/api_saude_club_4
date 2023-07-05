@@ -97,7 +97,7 @@ model Client {
   phoneNumber    String
   name           String
   partnerId      String
-  classes        ClientsOnClasses[]
+  classes        Class[]
   partner        Partner            @relation(fields: [partnerId], references: [id])
   consults       Consult[]
 
@@ -118,17 +118,7 @@ model Class {
   companyId     String
   date          String
   company       Company            @relation(fields: [companyId], references: [id])
-  students      ClientsOnClasses[]
-}
-
-model ClientsOnClasses {
-  clientId   String
-  classId    String
-  assignedAt DateTime @default(now())
-  class      Class    @relation(fields: [classId], references: [id])
-  client     Client   @relation(fields: [clientId], references: [id])
-
-  @@id([classId, clientId])
+  clients      Client[]
 }
 
 model News {

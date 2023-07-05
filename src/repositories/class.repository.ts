@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BookClassInput } from 'src/api/classes/dtos/book-class.input';
 import { CancelClientClassInput } from 'src/api/classes/dtos/cancel-client-class.input';
 import { CreateClassInput } from 'src/api/classes/dtos/create-class.input';
+import { DeleteClassInput } from 'src/api/classes/dtos/delete-class.input';
 import { FindAllClassesInput } from 'src/api/classes/dtos/find-all-classes.input';
 import { FindAllClassesByDateInput } from 'src/api/classes/dtos/find-classes_by_date.input';
 import { FindNextClientClassInput } from 'src/api/classes/dtos/find-next-client-class.input';
@@ -40,6 +41,17 @@ export class ClassRepository {
     })
   }
 
+  async delete({ classId }: DeleteClassInput) {
+    return await this.prisma.class.delete({
+      where: {
+        id: classId
+      },
+      select: {
+        clients: true
+      }
+    })
+  }
+
   async findClassById(id: string) {
     return await this.prisma.class.findUnique({
       where: {
@@ -66,7 +78,7 @@ export class ClassRepository {
   }
 
   async bookClass({ classId, clientId }: BookClassInput) {
-    return this.prisma.class.update({
+    return await this.prisma.class.update({
       where: {
         id: classId
       },
@@ -74,51 +86,53 @@ export class ClassRepository {
         lots: {
           decrement: 1
         },
-        students: {
-          create: [
-            {
-              client: {
-                connect: {
-                  id: clientId
-                }
-              }
-            }
-          ]
+        clients: {
+          connect: {
+            id: clientId
+          }
         }
-      }
+      }      
     })
   }
 
   async findNextClientClass({ clientId }: FindNextClientClassInput){
-    var classes = await this.prisma.clientsOnClasses.findMany({
+    var classes = await this.prisma.class.findMany({
       where: {
-        clientId
-      },
-      include: {
-        class: true
-      },
+        clients: {
+          some: {
+            id: clientId
+          }
+        }
+      }
     });
     if(classes.length == 0){
       return null;
     }
 
     const nextClass = classes.reduce((menor, atual) => {
-      if (parseInt(atual.class.dateTimestamp) < parseInt(menor.class.dateTimestamp)) {
+      if (parseInt(atual.dateTimestamp) < parseInt(menor.dateTimestamp)) {
         return atual;
       } else {
         return menor;
       }
     });
-    return nextClass.class;
+    return nextClass;
   }
 
   async cancelClass({classId, clientId }: CancelClientClassInput) {
-    await this.prisma.clientsOnClasses.delete({
+    await this.prisma.client.update({
       where: {
-        classId_clientId: {
-          classId,
-          clientId,
+        id: clientId
+      },
+      data: {
+        classes: {
+          disconnect: [{
+            id: classId
+          }]
         }
+      },
+      select: {
+        classes: true
       }
     })
     await this.prisma.class.update({
