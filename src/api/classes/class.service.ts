@@ -45,8 +45,8 @@ export class ClassService {
   async delete(data: DeleteClassInput) {
     const classExists = this.classRepository.findClassById(data.classId);
     if (!classExists) throw new HttpException('Companhia não existente', 404);
-    const classUpdated = await this.classRepository.delete(data);
-    return classUpdated;
+    await this.classRepository.delete(data);
+    return 'Deletado com sucesso!';
   }
 
   async findAllClassses(data: FindAllClassesInput) {

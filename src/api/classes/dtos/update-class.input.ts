@@ -31,6 +31,11 @@ export class UpdateClassInput {
   @IsOptional()
   @IsString()
   @Field(() => String, { nullable: true })
+  date: string;
+
+  @IsOptional()
+  @IsString()
+  @Field(() => String, { nullable: true })
   dateTimestamp: string;
 
   @IsOptional()

@@ -42,7 +42,7 @@ export class ClassRepository {
   }
 
   async delete({ classId }: DeleteClassInput) {
-    return await this.prisma.class.delete({
+    await this.prisma.class.delete({
       where: {
         id: classId
       },

@@ -29,7 +29,7 @@ export class ClassResolver {
     return this.classService.update(updateClassInput);
   }
 
-  @Mutation(() => ClassEntity)
+  @Mutation(() => String)
   deleteClass(
     @Args('deleteClassInput') deleteClassInput: DeleteClassInput,
   ){
