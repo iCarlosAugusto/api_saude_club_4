@@ -60,12 +60,48 @@ export class ClassRepository {
     })
   }
 
-  async findAllClasses({ companyId } : FindAllClassesInput) {
-    return await this.prisma.class.findMany({
-      where: {
-        companyId
+  async findAllClasses({ companyId, date, clientId, bookedClasses } : FindAllClassesInput) {
+    if(clientId) {
+      const classes = await this.prisma.class.findMany({
+        where: {
+          companyId,
+          date,
+          clients: {
+            some: {
+              id: clientId
+            }
+          }
+        },
+        include: {
+          clients: true
+        },
+      });
+  
+      if(bookedClasses){
+        const classesBooked = classes.filter((classesFilted) => classesFilted.clients.length > 0);
+        return classesBooked
       }
-    })
+  
+      return classes;
+    }
+
+    const classes = await this.prisma.class.findMany({
+      where: {
+        companyId,
+        date,
+      },
+      include: {
+        clients: true
+      },
+    });
+
+    if(bookedClasses){
+      const classesBooked = classes.filter((classesFilted) => classesFilted.clients.length > 0);
+      return classesBooked
+    }
+
+    return classes;
+
   }
 
   async findAllClassesByDate({ companyId, date }: FindAllClassesByDateInput){

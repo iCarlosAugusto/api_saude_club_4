@@ -1,8 +1,8 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ClientEntity } from 'src/api/users/entities/client.entity';
 
 @ObjectType()
 export class ClassEntity {
-
   @Field(() => String)
   id: string;
 
@@ -32,7 +32,10 @@ export class ClassEntity {
 
   @Field(() => String)
   teacherName: string;
-  
+
   @Field(() => String)
   date: string;
+
+  @Field(() => [ClientEntity], { nullable: true })
+  clients: [ClientEntity];
 }
