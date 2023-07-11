@@ -45,7 +45,7 @@ export class PartnersService {
   async findClientsPartner(data: FindClientsPartnerInput) {
     const partner = await this.partnerRepository.findOneById({id: data.partnerId});
     if(!partner) throw new HttpException(
-      'Não foi possível criar a aula pelo id de companhia fornecido',
+      'Não foi possível criar a aula pelo id do parceiro fornecido',
       HttpStatus.BAD_REQUEST,
     );
     const clients = await this.partnerRepository.findClientsPartner(data);

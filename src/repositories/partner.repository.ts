@@ -101,10 +101,7 @@ export class PartnerRepository {
 
   //REFAZER
   async findClientsPartner({ partnerId }: FindClientsPartnerInput) {
-    const clients = await this.prisma.partner.findMany({
-      //include: {
-      //  clients: true,
-      //},
+    const { clients } = await this.prisma.partner.findFirst({
       select: {
         clients: true,
       },
@@ -112,8 +109,6 @@ export class PartnerRepository {
         id: partnerId,
       },
     });
-
-    console.log(clients[0]);
     return clients;
   }
 }
