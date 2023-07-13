@@ -10,6 +10,7 @@ import { FindAllClassesInput } from './dtos/find-all-classes.input';
 import { CompanyRepository } from 'src/repositories/company.repository';
 import { UpdateClassInput } from './dtos/update-class.input';
 import { DeleteClassInput } from './dtos/delete-class.input';
+import { FindAllClientsOnClass } from './dtos/find-all-clients-on-class.input';
 
 @Injectable()
 export class ClassService {
@@ -111,5 +112,10 @@ export class ClassService {
       clientId,
     });
     return classCanceled;
+  }
+
+  async findClientsOnClass({ classId }: FindAllClientsOnClass) {
+    const clients = await this.classRepository.findClientsOnClass(classId);
+    return clients;
   }
 }

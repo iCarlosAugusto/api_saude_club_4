@@ -21,5 +21,5 @@ export class FindAllClassesInput {
   @IsOptional()
   @IsString()
   @Field(() => String, { nullable: true })
-  clientId?: string;
+  clientIdentification?: string;
 }

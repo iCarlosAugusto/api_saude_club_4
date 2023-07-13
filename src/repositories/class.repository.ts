@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { BookClassInput } from 'src/api/classes/dtos/book-class.input';
 import { CancelClientClassInput } from 'src/api/classes/dtos/cancel-client-class.input';
 import { CreateClassInput } from 'src/api/classes/dtos/create-class.input';
@@ -13,7 +13,19 @@ import { PrismaService } from 'src/api/users/services/prima.service';
 export class ClassRepository {
   constructor(private prisma: PrismaService) {}
 
-  async createClass({name, lots, startAt, companyId, address, description, place, bannerImage, teacherName, dateTimestamp, date }: CreateClassInput){
+  async createClass({
+    name,
+    lots,
+    startAt,
+    companyId,
+    address,
+    description,
+    place,
+    bannerImage,
+    teacherName,
+    dateTimestamp,
+    date,
+  }: CreateClassInput) {
     return this.prisma.class.create({
       data: {
         name,
@@ -26,62 +38,69 @@ export class ClassRepository {
         bannerImage,
         teacherName,
         dateTimestamp,
-        date
-      }
-    })
+        date,
+      },
+    });
   }
 
   async update(data: UpdateClassInput) {
     const { classId, ...rest } = data;
     return await this.prisma.class.update({
       where: {
-        id: classId
+        id: classId,
       },
-      data: { ...rest }
-    })
+      data: { ...rest },
+    });
   }
 
   async delete({ classId }: DeleteClassInput) {
     await this.prisma.class.delete({
       where: {
-        id: classId
+        id: classId,
       },
       select: {
-        clients: true
-      }
-    })
+        clients: true,
+      },
+    });
   }
 
   async findClassById(id: string) {
     return await this.prisma.class.findUnique({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
   }
 
-  async findAllClasses({ companyId, date, clientId, bookedClasses } : FindAllClassesInput) {
-    if(clientId) {
+  async findAllClasses({
+    companyId,
+    date,
+    clientIdentification,
+    bookedClasses,
+  }: FindAllClassesInput) {
+    if (clientIdentification) {
       const classes = await this.prisma.class.findMany({
         where: {
           companyId,
           date,
           clients: {
             some: {
-              id: clientId
-            }
-          }
+              identification: clientIdentification,
+            },
+          },
         },
         include: {
-          clients: true
+          clients: true,
         },
       });
-  
-      if(bookedClasses){
-        const classesBooked = classes.filter((classesFilted) => classesFilted.clients.length > 0);
-        return classesBooked
+
+      if (bookedClasses) {
+        const classesBooked = classes.filter(
+          (classesFilted) => classesFilted.clients.length > 0,
+        );
+        return classesBooked;
       }
-  
+
       return classes;
     }
 
@@ -91,57 +110,70 @@ export class ClassRepository {
         date,
       },
       include: {
-        clients: true
+        clients: true,
       },
     });
 
-    if(bookedClasses){
-      const classesBooked = classes.filter((classesFilted) => classesFilted.clients.length > 0);
-      return classesBooked
+    if (bookedClasses) {
+      const classesBooked = classes.filter(
+        (classesFilted) => classesFilted.clients.length > 0,
+      );
+      return classesBooked;
     }
 
     return classes;
-
   }
 
-  async findAllClassesByDate({ companyId, date }: FindAllClassesByDateInput){
+  async findAllClassesByDate({ companyId, date }: FindAllClassesByDateInput) {
     return this.prisma.class.findMany({
       where: {
         companyId,
-        date
+        date,
       },
-    })
+    });
   }
 
   async bookClass({ classId, clientId }: BookClassInput) {
+    const isClassAlreadyBooked = await this.prisma.class.findFirst({
+      where: {
+        id: classId,
+        clients: {
+          some: {
+            id: clientId,
+          },
+        },
+      },
+    });
+    if (isClassAlreadyBooked) throw new HttpException('Aula já agendada', 404);
+
     return await this.prisma.class.update({
       where: {
-        id: classId
+        id: classId,
       },
       data: {
         lots: {
-          decrement: 1
+          decrement: 1,
         },
         clients: {
           connect: {
-            id: clientId
-          }
-        }
-      }      
-    })
+            id: clientId,
+          },
+        },
+      },
+    });
   }
 
-  async findNextClientClass({ clientId }: FindNextClientClassInput){
+  async findNextClientClass({ clientId }: FindNextClientClassInput) {
     var classes = await this.prisma.class.findMany({
       where: {
         clients: {
           some: {
-            id: clientId
-          }
-        }
-      }
+            id: clientId,
+          },
+        },
+      },
     });
-    if(classes.length == 0){
+    if (classes.length == 0) {
       return null;
     }
 
@@ -155,33 +187,47 @@ export class ClassRepository {
     return nextClass;
   }
 
-  async cancelClass({classId, clientId }: CancelClientClassInput) {
+  async cancelClass({ classId, clientId }: CancelClientClassInput) {
     await this.prisma.client.update({
       where: {
-        id: clientId
+        id: clientId,
       },
       data: {
         classes: {
-          disconnect: [{
-            id: classId
-          }]
-        }
+          disconnect: [
+            {
+              id: classId,
+            },
+          ],
+        },
       },
       select: {
-        classes: true
-      }
-    })
+        classes: true,
+      },
+    });
     await this.prisma.class.update({
       where: {
-        id: classId
+        id: classId,
       },
       data: {
         lots: {
-          increment: 1
-        }
-      }
+          increment: 1,
+        },
+      },
     });
     return 'Aula cancelada com sucesso!';
   }
-}
 
+  async findClientsOnClass(classId: string) {
+    const clients = await this.prisma.class.findMany({
+      where: {
+        id: classId,
+      },
+      include: {
+        clients: true,
+      },
+
+    });
+    return clients[0].clients;
+  }
+}

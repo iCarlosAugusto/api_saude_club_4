@@ -9,6 +9,8 @@ import { CancelClientClassInput } from './dtos/cancel-client-class.input';
 import { ClassEntity } from './entities/class.entity';
 import { UpdateClassInput } from './dtos/update-class.input';
 import { DeleteClassInput } from './dtos/delete-class.input';
+import { ClientEntity } from '../users/entities/client.entity';
+import { FindAllClientsOnClass } from './dtos/find-all-clients-on-class.input';
 
 
 @Resolver(() => ClassEntity)
@@ -70,4 +72,12 @@ export class ClassResolver {
   ){
     return this.classService.cancelClass(cancelClientClass);
   }
+
+  @Query(() => [ ClientEntity ])
+  findClientsOnClass(
+    @Args('findClientsOnClassInput') findClientsOnClass: FindAllClientsOnClass
+  ){
+    return this.classService.findClientsOnClass(findClientsOnClass);
+  }
+
 }

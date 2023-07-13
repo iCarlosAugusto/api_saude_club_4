@@ -35,4 +35,7 @@ export class PartnerEntity {
 
   @Field(() => [ConsultEntity], { nullable: true })
   consults: ConsultEntity[];
+
+  @Field(() => String)
+  password: String
 }
