@@ -130,6 +130,9 @@ export class ClassRepository {
         companyId,
         date,
       },
+      include: {
+        clients: true
+      }
     });
   }
 
